@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import LandingPage from '../../components/LandingPage/LandingPage';
+// import LandingPage from '../../components/LandingPage/LandingPage';
+import HomePage from '../../components/HomePage/HomePage';
 import './App.css';
 
 function App() {
@@ -9,7 +10,8 @@ function App() {
             <div className="App">
                 <Switch>
                     <Route path="/">
-                        <LandingPage />
+                        <HomePage />
+                        {/* <LandingPage /> */}
                     </Route>
                 </Switch>
             </div>
