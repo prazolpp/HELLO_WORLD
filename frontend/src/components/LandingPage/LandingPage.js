@@ -5,6 +5,7 @@ import './LandingPage.css';
 const LandingPage = ({}) => {
 
     const getStarted = () => {
+    
     };
 
     return (
