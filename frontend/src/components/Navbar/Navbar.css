@@ -1,0 +1,35 @@
+.Navbar {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #A3A0FB;
+    padding: 10px 10px 10px 10px;
+    border-radius: 0px 15px 15px 0px ;
+}
+
+.Navbar .logo {
+    width: 95%;
+    height: auto;
+    margin-top: 2vh;
+}
+
+.Navbar .NavLinks {
+    margin: 30vh 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    justify-content: space-between;
+    
+}
+
+.NavImg{
+    width: 60%;
+    margin: 10px 0px 5px 10px;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .Navbar .NavLinks .languageDropdown {
+        display: none;
+    }
+}

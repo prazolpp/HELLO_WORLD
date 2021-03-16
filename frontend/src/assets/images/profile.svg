@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="49" height="41.166" viewBox="0 0 49 41.166">
+  <g id="Group_793" data-name="Group 793" transform="translate(1 0.75)">
+    <text id="Profile" transform="translate(0 33.416)" fill="#181818" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1" font-size="16" font-family="Poppins-Regular, Poppins" letter-spacing="-0.024em"><tspan x="0" y="0">Profile</tspan></text>
+    <g id="user_1_" data-name="user (1)" transform="translate(16)">
+      <path id="Path_91" data-name="Path 91" d="M18,21V19a3.775,3.775,0,0,0-3.5-4h-7A3.775,3.775,0,0,0,4,19v2" transform="translate(-4 -5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+      <ellipse id="Ellipse_51" data-name="Ellipse 51" cx="3.556" cy="4" rx="3.556" ry="4" transform="translate(3.444)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+    </g>
+  </g>
+</svg>
