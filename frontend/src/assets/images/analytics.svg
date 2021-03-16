@@ -1,6 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="72" height="41.75" viewBox="0 0 72 41.75">
-  <g id="Group_792" data-name="Group 792" transform="translate(13.5 0.75)">
-    <text id="Analytics" transform="translate(-12.5 34)" fill="#181818" stroke="rgba(0,0,0,0)" stroke-miterlimit="10" stroke-width="1" font-size="16" font-family="Poppins-Regular, Poppins" letter-spacing="-0.024em"><tspan x="0" y="0">Analytics</tspan></text>
-    <path id="heart" d="M18.478,4.413a4.827,4.827,0,0,0-6.828,0l-.93.93-.93-.93A4.828,4.828,0,0,0,2.963,11.24l.93.93L10.721,19l6.828-6.828.93-.93a4.827,4.827,0,0,0,0-6.828Z" transform="translate(7.279 -2.998)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" width="19.844" height="17.5" viewBox="0 0 19.844 17.5">
+  <path id="heart" d="M18.478,4.413a4.827,4.827,0,0,0-6.828,0l-.93.93-.93-.93A4.828,4.828,0,0,0,2.963,11.24l.93.93L10.721,19l6.828-6.828.93-.93a4.827,4.827,0,0,0,0-6.828Z" transform="translate(-0.799 -2.248)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
 </svg>

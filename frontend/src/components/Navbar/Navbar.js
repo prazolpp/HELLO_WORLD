@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/klout_logo.svg';
 import Home from '../../assets/images/home.svg';
@@ -12,19 +12,25 @@ const Navbar = ({}) => {
 
     const [tabNum, setTabNum] = useState(0)
 
-    return (
+    let homeClass = tabNum !== 0 ? "NavImg": "NavImg Selected"
+    let searchClass = tabNum !== 1 ? "NavImg": "NavImg Selected"
+    let analyticsClass = tabNum !== 2 ? "NavImg": "NavImg Selected"
+    let profileClass = tabNum !== 3 ? "NavImg": "NavImg Selected"
 
-        <div class="Navbar">
+
+
+    return (
+        <div className="Navbar">
             <div className="logo">
                 <Link to="/"> 
                     <img src={Logo} className="logo" alt="klout_logo" /> 
                 </Link>
             </div>
             <div className="NavLinks">  
-                <Link to="/"><img src={Home} className="NavImg" alt="home" /> </Link>
-                <Link to="/"><img src={Search} className="NavImg" alt="klout_logo" /> </Link>
-                <Link to="/"><img src={Analytics} className="NavImg" alt="klout_logo" /> </Link>
-                <Link to="/"><img src={Profile} className="NavImg" alt="klout_logo" /> </Link>
+                <Link to="/" onClick={() => {setTabNum(0)}}><div className={homeClass}> <img src={Home} className="icon" alt="home" /><div className="name"> Home </div></div></Link>
+                <Link to="/" onClick={() => {setTabNum(1)}}><div className={searchClass}><img src={Search} className="icon" className="icon" alt="search" /><div className="name"> Search </div></div> </Link>
+                <Link to="/" onClick={() => {setTabNum(2)}}><div className={analyticsClass}><img src={Analytics} className="icon" alt="analytics" /><div className="name"> Analytics </div></div> </Link>
+                <Link to="/" onClick={() => {setTabNum(3)}}><div className={profileClass}><img src={Profile} className="icon" alt="profile" /><div className="name"> Profile </div></div> </Link>
             </div>
         </div>
     )
