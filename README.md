@@ -21,11 +21,11 @@ In the backend repo, run: `npm run start`.
 
 In .env file in the backend, add the following lines:
 
-`
+```
 TWITTER_KEY=<TWITTER_API_KEY>
 TWITTER_VALUE=<TWITTER_API_KEY_VALUE>
 
-`
+```
 
 
 
