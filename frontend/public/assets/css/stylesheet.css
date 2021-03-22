@@ -1,0 +1,40 @@
+/* .container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #fff;
+  padding-left: 40px;
+  padding-right: 40px;
+  box-sizing: border-box;
+} */
+
+.welcomeKlout {
+  background-color: rgb(255, 255, 255);
+  margin-left: 150px;
+  text-align: center;
+  font-style: italic;
+}
+
+.line {
+  text-align: center;
+  font-style: italic;
+  font-size: large;
+  margin-top: 60px;
+  margin-left: 150px;
+}
+
+.logos li {
+  list-style: none;
+  float: left;
+  margin-left: 200px;
+  margin-top: 150px;
+  text-align: center;
+}
+
+.sign {
+  color: lightgray;
+  text-align: center;
+  float: left;
+  margin-left: 600px;
+  margin-top: 60px;
+}

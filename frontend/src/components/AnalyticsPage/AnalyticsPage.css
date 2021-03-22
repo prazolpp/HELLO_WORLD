@@ -1,0 +1,12 @@
+.Analytics{
+    display: flex;
+    flex-direction: column;
+}
+.Analytics .coverpic{
+    width: "1200"; 
+    height: "400"
+}
+.Analytics > .UserBio {
+    margin-top: -5%;
+    margin-left: 5%;
+} 

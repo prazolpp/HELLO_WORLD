@@ -10,11 +10,8 @@ const App = () => {
         <Router>
             <div className="App">
                 <Navbar />
-                <Switch>
-                    <Route path="/">
-                        <AnalyticsPage username={"prajwal_pp"}/>
-                    </Route>
-                </Switch>
+                <Route path="/landingpage" component={LandingPage} />
+                <Route path="/analytics" render={() => <AnalyticsPage username="justinbieber"/>}/>
             </div>
         </Router>
     );

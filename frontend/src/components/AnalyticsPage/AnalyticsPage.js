@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { sendRequest } from '../../shared/sendRequest';
+import { sendRequest } from '../../sendRequest/sendRequest';
 import { getTwitterData } from '../../apis/apis';
 import './AnalyticsPage.css';
-
+import UserBio from '../UserBio/UserBio'
 
 const AnalyticsPage = ({username}) => {
 
@@ -23,11 +23,11 @@ const AnalyticsPage = ({username}) => {
         sendRequest(requestObj).then((usersInfo) => {
             {console.log(usersInfo)}
             setUsersInfoState({
-                username: usersInfo[0].screen_name,
+                username: usersInfo[0].name,
                 image : "",
                 bio: "",
                 data: {
-                    followers: usersInfo[0].followers_count
+                    followers: usersInfo[0].formatted_followers_count
                 }
             });
         });
@@ -36,8 +36,10 @@ const AnalyticsPage = ({username}) => {
         
     return (
         <div className="Analytics">
-            {usersInfoState.username}
-            {usersInfoState.data.followers}
+            <div className="coverpic">
+                <img src="https://pbs.twimg.com/profile_banners/27260086/1616126665/1500x500" ></img>
+            </div>
+            <UserBio name={username} followers={usersInfoState.data.followers}/>
             {/*
                 <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                 <UserData data={usersInfoState.data} />
