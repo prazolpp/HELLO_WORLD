@@ -17,7 +17,15 @@ Go to backend repo and run: `npm run install`.
 In the frontend repo, run: `npm run start`.  
 In the backend repo, run: `npm run start`. 
 
+## Add twitter auth keys
 
+In .env file in the backend, add the following lines:
+
+```
+TWITTER_KEY=<TWITTER_API_KEY>
+TWITTER_VALUE=<TWITTER_API_KEY_VALUE>
+
+```
 
 
 

@@ -1,34 +1,33 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
+const fetch = require('node-fetch')
+const cors = require('cors')
+const { sendRequest } = require('./shared/sendRequest');
+const { twitterInfoApi } = require('./apis/apis')
 
+require('dotenv').config();
 const app = express();
+app.use(cors());
+app.use(express.json());
 const port = process.env.PORT || 5000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // API calls
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
+app.get('/bio/twitter/:twitter_name', (req, res) => {
+  reqObj = {
+    url: `${twitterInfoApi}${req.params.twitter_name}`
+  }
+  //url: `${twitterInfoApi}${req.username}`,
+  const twitter_key = process.env.TWITTER_KEY
+  const twitter_value = process.env.TWITTER_VALUE 
+  console.log(twitter_key)
+  reqObj[twitter_key] = twitter_value
+  console.log(reqObj)
+
+  sendRequest(reqObj).then((data) => {
+    console.log(data)
+    res.send(data)
+  }).catch((err) => res.send(err))
 });
-
-app.post('/api/world', (req, res) => {
-  console.log(req.body);
-  res.send(
-    `POST received: ${req.body.post}`,
-  );
-});
-
-// Below: configs for prod
-// if (process.env.NODE_ENV === 'production') {
-//   // Serve any static files
-//   app.use(express.static(path.join(__dirname, 'client/build')));
-
-//   // Handle React routing, return all requests to React app
-//   app.get('*', function(req, res) {
-//     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-//   });
-// }
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
