@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AnalyticsPage from '../../components/AnalyticsPage/AnalyticsPage';
 import LandingPage from '../../components/LandingPage/LandingPage';
 import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
@@ -11,7 +12,7 @@ const App = () => {
                 <Navbar />
                 <Switch>
                     <Route path="/">
-                        <LandingPage />
+                        <AnalyticsPage username={"prajwal_pp"}/>
                     </Route>
                 </Switch>
             </div>
