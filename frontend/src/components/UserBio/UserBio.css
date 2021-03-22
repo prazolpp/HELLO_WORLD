@@ -1,0 +1,9 @@
+
+.picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    border: 2px solid blue;
+    padding: 5px;
+    font-size: small;
+}

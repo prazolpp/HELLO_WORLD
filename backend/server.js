@@ -1,8 +1,6 @@
 const express = require('express');
-const path = require('path');
-const fetch = require('node-fetch')
 const cors = require('cors')
-const { sendRequest } = require('./shared/sendRequest');
+const { sendRequest } = require('./sendRequest/sendRequest');
 const { twitterInfoApi } = require('./apis/apis')
 
 require('dotenv').config();
