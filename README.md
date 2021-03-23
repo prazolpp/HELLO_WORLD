@@ -14,8 +14,8 @@ Go to backend repo and run: `npm run install`.
 
 ### Run the frontend and backend:
 
-In the frontend repo, run: `npm run start`.  
-In the backend repo, run: `npm run start`. 
+In the frontend repo, run: `npm start`.  
+In the backend repo, run: `npm start`. 
 
 ## Add twitter auth keys
 
