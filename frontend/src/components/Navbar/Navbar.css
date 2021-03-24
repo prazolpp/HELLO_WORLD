@@ -6,7 +6,7 @@
     background-color: #A3A0FB;
     padding: 10px 10px 10px 10px;
     border-radius: 0px 15px 15px 0px ;
-    position:relative;
+    position:absolute;
 }
 
 .Navbar .logo {
