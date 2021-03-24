@@ -11,7 +11,7 @@ const App = () => {
             <div className="App">
                 <Navbar />
                 <Route path="/landingpage" component={LandingPage} />
-                <Route path="/analytics" render={() => <AnalyticsPage username="justinbieber"/>}/>
+                <Route path="/analytics" render={() => <AnalyticsPage username="StephenCurry30"/>}/>
             </div>
         </Router>
     );

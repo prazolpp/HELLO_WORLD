@@ -37,9 +37,9 @@ const AnalyticsPage = ({username}) => {
     return (
         <div className="Analytics">
             <div className="coverpic">
-                <img src="https://pbs.twimg.com/profile_banners/27260086/1616126665/1500x500" ></img>
+                <img src="https://pbs.twimg.com/profile_banners/42562446/1580094204/1500x500" ></img>
             </div>
-            <UserBio name={username} followers={usersInfoState.data.followers}/>
+            <UserBio name={usersInfoState.username} followers={usersInfoState.data.followers}/>
             {/*
                 <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                 <UserData data={usersInfoState.data} />
