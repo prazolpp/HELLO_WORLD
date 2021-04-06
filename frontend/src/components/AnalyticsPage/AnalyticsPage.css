@@ -3,10 +3,10 @@
     flex-direction: column;
 }
 .Analytics .coverpic{
-    width: "1200"; 
-    height: "400"
+    width: "1000"; 
+    height: "350";
 }
 .Analytics > .UserBio {
-    margin-top: -5%;
-    margin-left: 5%;
+    margin-top: -8%;
+    margin-left: 10%;
 } 

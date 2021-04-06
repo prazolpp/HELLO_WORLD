@@ -8,8 +8,9 @@
 `git clone https://github.com/prazolpp/HELLO_WORLD.git
 
 ### Install the frontend and backend dependencies:
-Go to frontend repo and run: `npm run install`.   
-Go to backend repo and run: `npm run install`. 
+
+Go to frontend repo and run: `npm install`.   
+Go to backend repo and run: `npm install`. 
 
 ### Run the frontend and backend:
 In the frontend repo, run: `npm run start`.  
