@@ -9,13 +9,13 @@
 
 ### Install the frontend and backend dependencies:
 
-Go to frontend repo and run: `npm run install`.   
-Go to backend repo and run: `npm run install`. 
+Go to frontend repo and run: `npm install`.   
+Go to backend repo and run: `npm install`. 
 
 ### Run the frontend and backend:
 
-In the frontend repo, run: `npm start`.  
-In the backend repo, run: `npm start`. 
+In the frontend repo, run: `npm run start`.  
+In the backend repo, run: `npm run start`. 
 
 ## Add twitter auth keys
 
