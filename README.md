@@ -5,7 +5,7 @@
 
 ### Clone the repo: 
 
-`git clone https://github.com/prazolpp/HELLO_WORLD.git`
+`git clone https://github.com/prazolpp/HELLO_WORLD.git
 
 ### Install the frontend and backend dependencies:
 
@@ -13,9 +13,14 @@ Go to frontend repo and run: `npm install`.
 Go to backend repo and run: `npm install`. 
 
 ### Run the frontend and backend:
-
 In the frontend repo, run: `npm run start`.  
 In the backend repo, run: `npm run start`. 
+
+
+### Alternative method of running program
+Use '**cd frontend**' to navigate to the frontend folder.  
+Install the dependencies with: '**npm install**'.  
+Run the program with: '**npm start**'.  
 
 ## Add twitter auth keys
 
