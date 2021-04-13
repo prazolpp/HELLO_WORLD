@@ -4,14 +4,18 @@ import AnalyticsPage from '../../components/AnalyticsPage/AnalyticsPage';
 import LandingPage from '../../components/LandingPage/LandingPage';
 import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
+import ProfilePage from '../../components/ProfilePage/ProfilePage'
 
 const App = () => {
     return (
         <Router>
             <div className="App">
                 <Navbar />
-                <Route path="/landingpage" component={LandingPage} />
-                <Route path="/analytics" render={() => <AnalyticsPage username="StephenCurry30"/>}/>
+                <div className="appContent">
+                    <Route path="/landingpage" component={LandingPage} />
+                    <Route path="/analytics" render={() => <AnalyticsPage username="elonmusk"/>} />
+                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>
+                </div>
             </div>
         </Router>
     );
