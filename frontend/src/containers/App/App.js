@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AnalyticsPage from '../../components/AnalyticsPage/AnalyticsPage';
 import LandingPage from '../../components/LandingPage/LandingPage';
+import SearchPage from '../../components/SearchPage/SearchPage';
 import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
 import ProfilePage from '../../components/ProfilePage/ProfilePage'
@@ -14,7 +15,7 @@ const App = () => {
                 <div className="appContent">
                     <Route path="/landingpage" component={LandingPage} />
                     <Route path="/analytics" render={() => <AnalyticsPage username="elonmusk"/>} />
-                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>
+                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>      
                 </div>
             </div>
         </Router>
