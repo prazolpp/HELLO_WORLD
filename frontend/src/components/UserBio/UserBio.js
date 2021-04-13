@@ -7,7 +7,7 @@ const UserBio = ({name, img, bio, followers}) => {
     return(
         <div className="UserBio">
             <div className="picture">
-                <img src="https://pbs.twimg.com/profile_images/1221629746234060800/wNXHLb8J_400x400.jpg"></img>
+                <img src={img}></img>
             </div>
             <div className="name">
                 {name}
@@ -20,9 +20,6 @@ const UserBio = ({name, img, bio, followers}) => {
             </div>
         </div>
     )
-
-
-
 }
 
 export default UserBio ;

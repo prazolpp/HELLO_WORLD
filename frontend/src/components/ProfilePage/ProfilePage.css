@@ -1,0 +1,12 @@
+.Profile{
+    display: flex;
+    flex-direction: column;
+}
+.Profile .coverpic{
+    width: "1000"; 
+    height: "350";
+}
+.Profile > .UserBio {
+    margin-top: -8%;
+    margin-left: 10%;
+} 

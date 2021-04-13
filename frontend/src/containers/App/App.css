@@ -1,10 +1,16 @@
 .App {
   height: 98vh;
   display: flex;
+  flex-direction: column;
 }
 
 .App > .Navbar {
   height: 98vh;
   padding: 50 0 0 10;
   width: auto;
+}
+
+.App > .appContent{ 
+  margin-left: 110px;
+  margin-top: 50px;
 }
