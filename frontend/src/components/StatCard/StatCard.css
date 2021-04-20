@@ -1,0 +1,42 @@
+.statCards{
+    display: flex;
+    justify-content: space-between;
+    width: 80%
+}
+
+.StatCard{
+    width: 300px;
+    height: 90px;
+    background-color: hsl(0, 0%, 100%);
+    box-sizing: border-box;
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+.StatCard > *{
+    display: inline-block;
+}
+.textContent{
+    padding: 10px 0 0 10px;
+}
+
+.media{
+    font-size: small;
+    height: 20%;
+    padding: 0 0 10px 10px;
+    color: #707070;
+}
+
+.number{
+    font-weight: 700;
+    padding: 0 0 2px 10px;
+}
+.percent{
+    font-size: x-small;
+    font-weight: 800;
+    padding: 0 0 0px 10px;
+}
+
+.bar{
+    margin: 40px 10px 0px 0px;
+}

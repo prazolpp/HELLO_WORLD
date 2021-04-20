@@ -4,6 +4,8 @@ import { getTwitterData } from '../../apis/apis';
 import './AnalyticsPage.css';
 import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
+import TopNav from '../TopNav/TopNav';
+import StatCard from '../StatCard/StatCard';
 
 const AnalyticsPage = ({username}) => {
 
@@ -15,6 +17,14 @@ const AnalyticsPage = ({username}) => {
         bio: '',
         data: {}
     });
+ 
+    
+    const medias = ["Twitter Followers", "Youtube Subscribers", "Tiktok Followers"]
+    const numbers = [{curr: 1000, past: 900}, {curr: 1200, past: 1083}, {curr: 2200, past: 1329}]
+
+    const statcards = medias.map((media,i) => {
+        return <StatCard media={media} number={numbers[i].curr} pastNumber={numbers[i].past}/>
+    })
 
     useEffect(() => {
         let requestObj = {
@@ -37,7 +47,11 @@ const AnalyticsPage = ({username}) => {
     
     return (
         <div className="Analytics">
+            <TopNav />
             <UserBio name={"John Brown"} img={"https://images.unsplash.com/photo-1524666041070-9d87656c25bb?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"} followers={55}/>
+            <div className="statCards">
+                {statcards}
+            </div>
             <ChartComponent />
             {/*
                 <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>

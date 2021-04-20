@@ -15,7 +15,8 @@ const App = () => {
                 <div className="appContent">
                     <Route path="/landingpage" component={LandingPage} />
                     <Route path="/analytics" render={() => <AnalyticsPage username="elonmusk"/>} />
-                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>      
+                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>  
+                    <Route path="/searchpage" render={SearchPage} />
                 </div>
             </div>
         </Router>
