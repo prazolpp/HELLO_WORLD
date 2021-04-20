@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import './ChartComponent.css';
-import LineCharts from '../LineCharts/LineCharts'
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import LineCharts from '../LineCharts/LineCharts';
+import Dropdown from '../Dropdown/Dropdown'
+
 
 const ChartComponent = (props) => {
     
     const [dropdownOpen, setDropdownOpen] = useState("All");
     const  handleChange = (event) => setDropdownOpen(event.target.value);
-
+    const options = ["last_week", "last_month", "last_6_months", "last_year"]
     return (
         <div className="ChartComponent">
-            <div className="chartSwitcher">
-                <div className="setMedia">
-                    <select value={dropdownOpen} onChange={handleChange}>
-                        <option value="last_week">Last week</option>
-                        <option value="last_month">Last month</option>
-                        <option value="last_6_months">Last 6 months</option>
-                        <option value="last_year">Last year</option>
-                    </select>
-                </div>
+            <div className="Header">
+                <Dropdown options={options} optionNames={options} dropdownOpen={dropdownOpen} handleChange={handleChange}/>
             </div>
             <LineCharts timePeriod={dropdownOpen} twitterName="" instaName="" youtubeName=""/>
         </div>

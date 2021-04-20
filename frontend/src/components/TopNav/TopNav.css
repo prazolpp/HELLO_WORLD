@@ -1,0 +1,9 @@
+.TopNav{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6%;
+}
+
+.SearchBar{
+    padding: 0 30% 0 0;
+}

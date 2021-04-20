@@ -1,4 +1,11 @@
 
+.UserBio{
+    position: relative
+}
+.picture{
+    display: inline-block;
+    height: 100%;
+}
 .picture img {
     width: 150px;
     height: 150px;
@@ -6,4 +13,36 @@
     border: 2px solid blue;
     padding: 5px;
     font-size: small;
+
+}
+
+.nameBio{
+    display: inline-block;
+    position: absolute;
+    top: 30px;
+    padding-left: 20px;
+    right: auto;
+}
+
+.followStat{
+    width: 60%;
+    margin-top: 2%;
+    
+}
+.followStat > div{
+    display: inline-block;
+    width: 50%
+
+}
+
+.nameBio > .name{
+    font-weight: 700;
+    color: #2D3DDF;
+    padding-bottom: 1%;
+}
+
+.bio{
+    font-weight: 300;
+    color: #080000;
+    padding-bottom: 5%;
 }

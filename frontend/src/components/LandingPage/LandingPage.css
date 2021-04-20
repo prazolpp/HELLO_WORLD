@@ -10,7 +10,7 @@
 
 .welcomeKlout {
     background-color: rgb(255, 255, 255);
-    margin-left: 150px;
+    margin-left: 20px;
     margin-top: 30px;
     text-align: center;
     font-style: italic;
@@ -20,8 +20,8 @@
     text-align: center;
     font-style: italic;
     font-size: large;
-    margin-top: 60px;
-    margin-left: 150px;
+    margin-top: 50px;
+    margin-left: 40px;
   }
   
   .logos li {

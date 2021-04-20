@@ -1,21 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import './SearchPage.css';
 
 
 const SearchPage = ({}) => {
-
-    useEffect(() => {
-        const script = document.createElement('script');
-      
-        script.src = "https://kit.fontawesome.com/4a9281ac6c.js";
-        script.async = true;
-      
-        document.body.appendChild(script);
-      
-        return () => {
-          document.body.removeChild(script);
-        }
-      }, []);
 
     return (
         <div className="SearchPage">
@@ -42,7 +31,7 @@ const SearchPage = ({}) => {
             <div className="container">
                 <input type="text" placeholder="Search" />
                 <a href="">
-                    <li className="fas fa-search"></li>
+                    <FontAwesomeIcon icon={["fas", "search"]} color="red"/>
                 </a>
             </div>
 
