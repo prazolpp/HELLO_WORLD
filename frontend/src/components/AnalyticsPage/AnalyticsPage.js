@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
-import { getTwitterData } from '../../apis/apis';
+import { getTwitterData, getYoutubeData } from '../../apis/apis';
 import './AnalyticsPage.css';
 import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
@@ -15,40 +15,62 @@ const AnalyticsPage = ({username}) => {
         username: username,
         image : '',
         bio: '',
-        data: {}
+        data: {
+            youtube:{}
+        }
     });
  
     
-    const medias = ["Twitter Followers", "Youtube Subscribers", "Tiktok Followers"]
-    const numbers = [{curr: 1000, past: 900}, {curr: 1200, past: 1083}, {curr: 2200, past: 1329}]
-
-    const statcards = medias.map((media,i) => {
-        return <StatCard media={media} number={numbers[i].curr} pastNumber={numbers[i].past}/>
-    })
-
+    const medias = ["followers", "posts", "views"]
+    username = "PewDiePie"
+    let statcards = ""
     useEffect(() => {
-        let requestObj = {
+        {/*
+        // todo: replace username with each usernames of each media
+        let twitterRequestObj = {
             url: `${getTwitterData}/${username}`,
         }
+
         //todo: change the values in the usersInfoState to match the twitter api
-        sendRequest(requestObj).then((usersInfo) => {
+        sendRequest(twitterRequestObj).then((usersInfo) => {
             {console.log(usersInfo)}
             setUsersInfoState({
-                username: usersInfo[0].name,
-                image : "",
-                bio: "",
                 data: {
+                    ...usersInfoState.data,
                     followers: usersInfo[0].formatted_followers_count
                 }
             });
         });
+    */}
+        let youtubeRequestObj = {
+            url: `${getYoutubeData}/${username}`
+        }
+
+        sendRequest(youtubeRequestObj).then((usersInfo) => {
+            setUsersInfoState({
+                data: { 
+                    ...usersInfoState.data, 
+                    youtube:{
+                        followers: usersInfo.items[0].statistics.subscriberCount,
+                        posts: usersInfo.items[0].statistics.videoCount,
+                        views: usersInfo.items[0].statistics.viewCount
+                    }
+                }
+            })
+        })
+
         
     }, [username]);
-    
+
+    console.log(usersInfoState)
+    statcards = medias.map((media,i) => {
+        return <StatCard media={"Youtube " + media} number={usersInfoState.data.youtube[media]} pastNumber={usersInfoState.data.youtube[media]} />
+    })
+
     return (
         <div className="Analytics">
             <TopNav />
-            <UserBio name={"John Brown"} img={"https://images.unsplash.com/photo-1524666041070-9d87656c25bb?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"} followers={55}/>
+            <UserBio name={username} img={"https://yt3.ggpht.com/ytc/AAUvwnga3eXKkQgGU-3j1_jccZ0K9m6MbjepV0ksd7eBEw=s176-c-k-c0x00ffffff-no-rj"} followers={55}/>
             <div className="statCards">
                 {statcards}
             </div>

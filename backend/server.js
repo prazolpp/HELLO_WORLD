@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors')
 const { sendRequest } = require('./sendRequest/sendRequest');
-const { twitterInfoApi } = require('./apis/apis')
+const { twitterInfoApi, youtubeApi, youtubeIdApi } = require('./apis/apis')
 
 require('dotenv').config();
 const app = express();
@@ -28,4 +28,26 @@ app.get('/bio/twitter/:twitter_name', (req, res) => {
   }).catch((err) => res.send(err))
 });
 
+app.get('/bio/youtube/:youtube_name', (req, res) => {
+
+  const username = req.params.youtube_name
+  const youtube_key = process.env.YOUTUBE_KEY
+  console.log(youtube_key, username)
+  reqObj = {
+    url: `${youtubeIdApi}${username}&key=${youtube_key}`
+  }
+  sendRequest(reqObj).then((data) => {
+    return data
+  }).catch((err) => res.send(err))
+  .then((data) => {
+    const id = data.items[0].id
+    reqObj = {
+      url: `${youtubeApi}${id}&key=${youtube_key}`
+    }
+    sendRequest(reqObj).then((data) => {
+      console.log(data)
+      res.send(data)
+    })
+  })
+})
 app.listen(port, () => console.log(`Listening on port ${port}`));

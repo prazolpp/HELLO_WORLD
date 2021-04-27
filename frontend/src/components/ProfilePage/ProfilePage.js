@@ -4,6 +4,7 @@ import { getTwitterData } from '../../apis/apis';
 import './ProfilePage.css';
 import UserBio from '../UserBio/UserBio'
 import UserStats from '../UserStats/UserStats'
+import HorizontalNav from '../HorizontalNav/HorizontalNav'
 
 const ProfilePage = ({username}) => {
 
@@ -41,6 +42,7 @@ const ProfilePage = ({username}) => {
                 <img src="https://pbs.twimg.com/profile_banners/44196397/1576183471/1500x500" ></img>
             </div>
             <UserBio name={"John Brown"} img={"https://images.unsplash.com/photo-1524666041070-9d87656c25bb?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8bWFsZXxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80"} followers={55}/>
+            <HorizontalNav />
             <UserStats />
             {/*
                 <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
