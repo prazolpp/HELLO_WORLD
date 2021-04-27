@@ -13,6 +13,10 @@
 // the project's config changing)
 
 /**
+ * 
+ * 
+ * 
+ * 
  * @type {Cypress.PluginConfig}
  */
 // eslint-disable-next-line no-unused-vars
