@@ -14,8 +14,8 @@ const App = () => {
                 <Navbar />
                 <div className="appContent">
                     <Route path="/landingpage" component={LandingPage} />
-                    <Route path="/analytics" render={() => <AnalyticsPage username="elonmusk"/>} />
-                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>  
+                    <Route path="/analytics" render={() => <AnalyticsPage username="PewDiePie"/>} />
+                    <Route path="/profile" render={() => <ProfilePage username="PewDiePie"/>}/>  
                     <Route path="/searchpage" render={SearchPage} />
                 </div>
             </div>

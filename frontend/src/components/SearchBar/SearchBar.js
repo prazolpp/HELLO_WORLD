@@ -7,9 +7,12 @@ const SearchBar = ({keyword,setKeyword}) => {
     <input 
      style={BarStyling}
      key="random1"
-     value={keyword}
      placeholder={"search user"}
-     onChange={(e) => setKeyword(e.target.value)}
+     onChange={(e) => {
+       if(e.key == 'Enter'){
+        setKeyword(e.target.value)
+       }
+     }}
     />
     </div>
   );

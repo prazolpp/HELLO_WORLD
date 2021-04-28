@@ -1,5 +1,6 @@
 module.exports = {
-    twitterInfoApi: "https://cdn.syndication.twimg.com/widgets/followbutton/info.json?screen_names=",
+    twitterInfoApi: "https://api.twitter.com/2/users/",
     youtubeIdApi:"https://youtube.googleapis.com/youtube/v3/channels?part=id&forUsername=",
-    youtubeApi: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id="
+    youtubeApi: "https://www.googleapis.com/youtube/v3/channels?part=statistics&id=",
+    instagramApi: "https://www.instagram.com/",
 };
