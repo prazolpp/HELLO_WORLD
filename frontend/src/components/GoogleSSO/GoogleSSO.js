@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './GoogleSSO.css';
 import { signInWithGoogle } from "../../services/firebase";
+import {userContext} from '../../userContext';
 //Extra sign-in page in case the user needs to sign in from anywhere else in the app (can just link to this)
 
 const GoogleSSO = ({}) => {

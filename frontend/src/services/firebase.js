@@ -21,7 +21,9 @@ export const signInWithGoogle = () => {
   auth.signInWithPopup(googleProvider).then((res) => {
     console.log(res.user)
     userContext.value=res.user
+    return true
   }).catch((error) => {
     console.log(error.message)
+    return false
   })
 }
