@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './LandingPage.css';
+import { signInWithGoogle } from "../../services/firebase";
 
 
 const LandingPage = ({}) => {
@@ -49,7 +50,8 @@ const LandingPage = ({}) => {
 
             <div className="sign">
                 <p>---------------------Sign in with ---------------------</p>
-                <button type="button"><img src="google.jpeg" alt="google" width="40" height="20"/></button>
+                {/* <Link to='../GoogleSSO/GoogleSSO.js'><img src="google.jpeg" alt="google" width="40" height="20"/>Google</Link> */}
+                <button type="button"><img src="google.jpeg" alt="google" width="40" height="20" onClick={signInWithGoogle}/></button>
             </div>
         </div>
     );
