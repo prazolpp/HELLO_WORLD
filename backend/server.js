@@ -10,11 +10,9 @@ app.use(express.json());
 const port = process.env.PORT || 5000;
 
 // API calls
-app.get('/bio/twitter/:twitter_name', (req, res) => {
+app.get('/bio/twitter/:twitter_name', async (req, res) => {
   const twittername = req.params.twitter_name
-  const data = Promise.resolve(lookup(twittername))
-  console.log(data)
-  res.send(data)
+  lookup(twittername, res)
 });
 
 app.get('/bio/youtube/:youtube_name', (req, res) => {

@@ -1,6 +1,5 @@
-.TopNav{
+.StatCards{
     display: flex;
     justify-content: space-between;
-    margin-bottom: 6%;
-    margin-left: 80%
+    width: 80%
 }

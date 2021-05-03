@@ -8,7 +8,6 @@ const TopNav = ({username, setUsername, platform, handleChange}) => {
 
     return (
         <div className="TopNav">
-            <SearchBar keyword={username} setKeyword={setUsername} />
             <Dropdown options={options} optionNames={options} dropdownOpen={platform} handleChange={handleChange} />
             <button className="signout" >Sign Out</button>
         </div>

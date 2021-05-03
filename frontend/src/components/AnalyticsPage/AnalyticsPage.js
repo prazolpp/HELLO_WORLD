@@ -5,7 +5,7 @@ import './AnalyticsPage.css';
 import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
-import StatCard from '../StatCard/StatCard';
+import StatCards from '../StatCards/StatCards';
 
 const AnalyticsPage = ({username}) => {
 
@@ -13,16 +13,14 @@ const AnalyticsPage = ({username}) => {
     // trickle down the data from this component to child components to display in each of them 
     const [usersInfoState, setUsersInfoState] = useState({
         username: username,
+        youtubeName: "",
+        twitterName: "",
         image : '',
         bio: '',
         data: {
             youtube:{},
             instagram:{},
-            twitter:{
-                followers: '466.9k',
-                following: 0,
-                posts:0
-            },
+            twitter:{},
             tiktok:{}
         }
     })
@@ -34,39 +32,32 @@ const AnalyticsPage = ({username}) => {
     //     instagram: ["followers", "posts", "following"],
     //     tiktok: []
     // }
-    username = "PewDiePie"
-    const setUsername = (username) => {
-        setUsersInfoState({
-            ...usersInfoState,
-            username: username
-        })
-    }
-    let statcards = ""
-    let statcards_twitter = ""
-    useEffect(() => {
-        {/*
-        // todo: replace username with each usernames of each media
-        let twitterRequestObj = {
-            url: `${getTwitterData}/${username}`,
-        }
-
-        //todo: change the values in the usersInfoState to match the twitter api
-        sendRequest(twitterRequestObj).then((usersInfo) => {
-            {console.log(usersInfo)}
+    const setYoutubeName = (e) => {
+        if(e.key == "Enter"){
             setUsersInfoState({
-                data: {
-                    ...usersInfoState.data,
-                    followers: usersInfo[0].formatted_followers_count
-                }
-            });
-        });
-    */}
+                ...usersInfoState,
+                youtubeName: e.target.value
+            })
+        }
+    }
+    const setTwitterName = (e) => {
+        if(e.key == "Enter"){
+            setUsersInfoState({
+                ...usersInfoState,
+                twitterName: e.target.value
+            })
+        }
+    }
+
+    useEffect(() => {
+
         let youtubeRequestObj = {
-            url: `${getYoutubeData}/${"PewDiePie"}`
+            url: `${getYoutubeData}/${usersInfoState.youtubeName}`
         }
 
         sendRequest(youtubeRequestObj).then((usersInfo) => {
             setUsersInfoState({
+                ...usersInfoState,
                 data: { 
                     ...usersInfoState.data, 
                     youtube:{
@@ -77,52 +68,38 @@ const AnalyticsPage = ({username}) => {
                 }
             })
         })
-        // let twitterRequestObj = {
-        //     url: `${getTwitterData}/${"pewdiepie"}`
-        // }
+        let twitterRequestObj = {
+            url: `${getTwitterData}/${usersInfoState.twitterName}`
+        }
 
-        // sendRequest(twitterRequestObj).then((usersInfo) => {
-        //     setUsersInfoState({
-        //         data: { 
-        //             ...usersInfoState.data, 
-        //             twitter:{
-        //                 followers: usersInfo.followers_count,
-        //                 posts: usersInfo.statuses_count,
-        //                 following: usersInfo.friends_count
-        //             }
-        //         }
-        //     })
-        // })
-
-    }, [usersInfoState.username, platform]);
+        sendRequest(twitterRequestObj).then((usersInfo) => {
+            setUsersInfoState({
+                ...usersInfoState,
+                data: { 
+                    ...usersInfoState.data, 
+                    twitter:{
+                        followers: usersInfo.followers_count,
+                        posts: usersInfo.statuses_count,
+                        following: usersInfo.friends_count
+                    }
+                }
+            })
+        })
+    }, [usersInfoState.twitterName, platform, usersInfoState.youtubeName]);
 
     console.log(usersInfoState)
-    const medias = ["followers", "posts", "views"]
-    if(platform == "Youtube"){
-        statcards = medias.map((media,i) => {
-            return <StatCard media={`${platform} ${media}`} number={usersInfoState.data.youtube[media]} pastNumber={usersInfoState.data.youtube[media]} />
-        })
-    }
 
-    const twitter = ["followers", "posts", "following"]
-    if(platform == "Twitter"){
-        statcards_twitter = twitter.map((media,i) => {
-            return <StatCard media={`${platform} ${media}`} number={usersInfoState.data.twitter[media]} pastNumber={usersInfoState.data.twitter[media]} />
-        })
-    }
     return (
         <div className="Analytics">
-            <TopNav username={username} setUsername={setUsername} platform={platform} handleChange={handleChange}/>
+            <TopNav platform={platform} handleChange={handleChange}/>
             <UserBio name={username} img={"https://yt3.ggpht.com/ytc/AAUvwnga3eXKkQgGU-3j1_jccZ0K9m6MbjepV0ksd7eBEw=s176-c-k-c0x00ffffff-no-rj"} followers={55}/>
-            <div className="statCards">
-                {statcards }
-                {statcards_twitter }
-            </div>
+            <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} usersInfoState={usersInfoState}/>
             <ChartComponent />
             {/*
                 <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                 <UserData data={usersInfoState.data} />
             */}
+
         </div>
     );
 };

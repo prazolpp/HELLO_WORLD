@@ -8,13 +8,16 @@ const client = new Twitter({
   access_token_secret: process.env.token_secret
 });
 
-const lookup = function(username) {
+const lookup = function(username, res) {
   var params={screen_name: username}
-  client.get('users/show',  params, (error, data) => {
-      if(!error){
-          console.log(data)
-        return data
-      }
-  });
+  let userdata = ""
+    client.get('users/show',  params, (error, data) => {
+        if(!error){
+            res.send(data)
+        }
+        else{
+            res.send(error)
+        }
+    });
 }
 module.exports = {lookup}
