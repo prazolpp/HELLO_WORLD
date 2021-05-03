@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
+// import {userContext} from '../userContext';
 import './UserBio.css';
 
 const UserBio = ({name, img, bio, followers}) => {

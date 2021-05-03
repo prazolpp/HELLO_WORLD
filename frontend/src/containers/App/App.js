@@ -6,6 +6,7 @@ import SearchPage from '../../components/SearchPage/SearchPage';
 import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
 import ProfilePage from '../../components/ProfilePage/ProfilePage'
+import GoogleSSO from '../../components/GoogleSSO/GoogleSSO';
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path="/analytics" render={() => <AnalyticsPage username="elonmusk"/>} />
                     <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>  
                     <Route path="/searchpage" render={SearchPage} />
+                    {/* <Route path="/googleSSO" render={GoogleSSO} /> */}
                 </div>
             </div>
         </Router>
