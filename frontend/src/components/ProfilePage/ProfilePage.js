@@ -18,7 +18,6 @@ const ProfilePage = ({username}) => {
         bio: '',
         data: {}
     });
-
     useEffect(() => {
         let requestObj = {
             url: `${getTwitterData}/${username}`,
@@ -39,23 +38,22 @@ const ProfilePage = ({username}) => {
     }, [username]);
 
     if(userContext.value !== undefined){
-    return (
-        <div className="Profile">
-            <div className="coverpic">
-                <img src="https://pbs.twimg.com/profile_banners/44196397/1576183471/1500x500" ></img>
+        return (
+            <div className="Profile">
+                <div className="coverpic">
+                    <img src="https://pbs.twimg.com/profile_banners/44196397/1576183471/1500x500" ></img>
+                </div>
+                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} followers={55}/>
+                <HorizontalNav />
+                <UserStats />
+                {/*
+                    <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
+                    <UserData data={usersInfoState.data} />
+                */}
             </div>
-            <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} followers={55}/>
-            <HorizontalNav />
-            <UserStats />
-            {/*
-                <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
-                <UserData data={usersInfoState.data} />
-            */}
-        </div>
-    );
+        );
    }else {
-              console.log(userContext.value)
-
+        console.log(userContext.value)
        return(<GoogleSSO />);
    }
 };

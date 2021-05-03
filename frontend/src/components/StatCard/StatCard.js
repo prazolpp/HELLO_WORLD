@@ -29,9 +29,9 @@ const StatCard = ({media, number, pastNumber}) => {
                 <div className="number">
                     {number}
                 </div>
-                <div className="percent" style={percent >= 0? {color: "green"} : {color: "red"}}>
+                {/* <div className="percent" style={percent >= 0? {color: "green"} : {color: "red"}}>
                     {percent+"%"}
-                </div>
+                </div> */}
             </div>
             <div className="bar">
                 <img src="bar.svg" />

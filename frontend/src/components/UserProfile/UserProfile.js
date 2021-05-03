@@ -9,17 +9,7 @@ import './UserProfile.css';
 const UserProfile= (props) => {
 
     return (
-        <Router>
-            <div className="UserProfile">
-                <HorizontalNav />
-                <div className="profileContent">
-                    <Route path= "/profile/status"component={Status}/>
-                    <Route path="/profile/mystats"/>
-                    <Route path="/profile/businesscard"/>  
-                    <Route path="/profile/share" />
-                </div>
-            </div>
-        </Router>
+        "nothing"
     )
 }
 

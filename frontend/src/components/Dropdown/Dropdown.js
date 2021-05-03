@@ -3,8 +3,6 @@ import './Dropdown.css'
 
 const Dropdown = ({options, optionNames, dropdownOpen, handleChange }) => {
     
-
-
     const [optionsState, setOptionsState] =  useState(options)
 
     const renderdropdown = () => {
