@@ -13,10 +13,10 @@ const ProfilePage = ({username}) => {
     //use Effect to make api call to gather image and tweet info
     // trickle down the data from this component to child components to display in each of them 
     const [usersInfoState, setUsersInfoState] = useState({
-        username: username,
         image : '',
         bio: '',
-        data: {}
+        data: {}, 
+        userContext: userContext
     });
 
     if(userContext.value !== undefined){
@@ -25,7 +25,7 @@ const ProfilePage = ({username}) => {
                 <div className="coverpic">
                     <img src="https://pbs.twimg.com/profile_banners/44196397/1576183471/1500x500" ></img>
                 </div>
-                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} followers={55}/>
+                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <HorizontalNav />
                 <UserStats />
                 {/*

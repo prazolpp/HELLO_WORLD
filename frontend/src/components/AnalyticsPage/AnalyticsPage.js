@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
-import { getTwitterData, getYoutubeData, getInstagramData } from '../../apis/apis';
+import { getTwitterData, getYoutubeData, getInstagramData} from '../../apis/apis';
 import './AnalyticsPage.css';
 import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
 import StatCards from '../StatCards/StatCards';
+import {userContext} from '../../userContext';
+import GoogleSSO from '../GoogleSSO/GoogleSSO'
 
-const AnalyticsPage = ({username}) => {
+const AnalyticsPage = ({}) => {
 
     //use Effect to make api call to gather image and tweet info
     // trickle down the data from this component to child components to display in each of them 
     const [usersInfoState, setUsersInfoState] = useState({
-        username: username,
+        userid: "",
         youtubeName: "",
         twitterName: "",
+        instagramName: "",
         image : '',
         bio: '',
         data: {
@@ -48,9 +51,16 @@ const AnalyticsPage = ({username}) => {
             })
         }
     }
+    const setInstagramName = (e) => {
+        if(e.key == "Enter"){
+            setUsersInfoState({
+                ...usersInfoState,
+                instagramName: e.target.value
+            })
+        }
+    }
 
     useEffect(() => {
-
         let youtubeRequestObj = {
             url: `${getYoutubeData}/${usersInfoState.youtubeName}`
         }
@@ -85,23 +95,48 @@ const AnalyticsPage = ({username}) => {
                 }
             })
         })
-    }, [usersInfoState.twitterName, platform, usersInfoState.youtubeName]);
+        let instaRequestObj = {
+            url: `${getInstagramData}/${usersInfoState.instagramName}`
+        }
+        sendRequest(instaRequestObj).then((usersInfo) => {
+            setUsersInfoState({
+                ...usersInfoState,
+                data: { 
+                    ...usersInfoState.data, 
+                    instagram:{
+                        followers: usersInfo.graphql.user.edge_followed_by.count || 0,
+                        posts: 0,
+                        following: usersInfo.graphql.user.edge_follow.count|| 0
+                    }
+                }
+            })
+        }).catch((error) => console.log)
+
+    }, [usersInfoState.twitterName, usersInfoState.youtubeName, platform, userContext]);
 
     console.log(usersInfoState)
 
-    return (
-        <div className="Analytics">
-            <TopNav platform={platform} handleChange={handleChange}/>
-            <UserBio name={username} img={"https://yt3.ggpht.com/ytc/AAUvwnga3eXKkQgGU-3j1_jccZ0K9m6MbjepV0ksd7eBEw=s176-c-k-c0x00ffffff-no-rj"} followers={55}/>
-            <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} usersInfoState={usersInfoState}/>
-            <ChartComponent />
-            {/*
-                <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
-                <UserData data={usersInfoState.data} />
-            */}
+     if(userContext.value == undefined){
+         console.log(userContext.value)
+         return(<GoogleSSO />);
+    }else {
+        return (
+            <div className="Analytics">
+                <TopNav platform={platform} handleChange={handleChange}/>
+                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} />
+                <div class="prompt">
+                    Choose a platform from the top right corner and enter your social media id below! 
+                </div>
+                <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} setInstagramName={setInstagramName} usersInfoState={usersInfoState}/>
+                <ChartComponent />
+                {/*
+                    <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
+                    <UserData data={usersInfoState.data} />
+                */}
 
-        </div>
-    );
+            </div>
+        );
+    }
 };
 
 export default AnalyticsPage ;
