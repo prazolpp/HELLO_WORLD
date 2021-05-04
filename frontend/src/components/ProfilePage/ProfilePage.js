@@ -18,24 +18,6 @@ const ProfilePage = ({username}) => {
         bio: '',
         data: {}
     });
-    useEffect(() => {
-        let requestObj = {
-            url: `${getTwitterData}/${username}`,
-        }
-        //todo: change the values in the usersInfoState to match the twitter api
-        sendRequest(requestObj).then((usersInfo) => {
-            {console.log(usersInfo)}
-            setUsersInfoState({
-                username: usersInfo[0].name,
-                image : "",
-                bio: "",
-                data: {
-                    followers: usersInfo[0].formatted_followers_count
-                }
-            });
-        });
-        
-    }, [username]);
 
     if(userContext.value !== undefined){
         return (

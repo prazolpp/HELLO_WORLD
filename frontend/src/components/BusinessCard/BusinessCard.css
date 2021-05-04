@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500&display=swap");
+
+.card {
+  background-color: #222831;
+  position: absolute;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0 60px;
+}
+
+.card__name {
+  margin-top: 15px;
+  font-size: 1.5em;
+}
+
+.card__image {
+  height: 160px;
+  width: 160px;
+  border-radius: 50%;
+  border: 5px solid #272133;
+  margin-top: 20px;
+  box-shadow: 0 10px 50px rgba(235, 25, 110, 1);
+}
+
+.social-icons {
+  padding: 2px;
+  margin: 1em;
+}
+
+.social-icons li {
+  /* display: inline-table; */
+  margin: 1em;
+  position: relative;
+  font-size: 1.7em;
+  list-style-type: none;
+  width: 90px;
+  bottom: 20px;
+  margin-top: 40px;
+}
+
+.social-icons i {
+  color: #fff;
+  margin-left: -60px;
+  /* position: absolute; */
+  /* top: 0.95em;
+  left: 0.99em; */
+  text-align: right;
+  transition: all 265ms ease-out;
+}
+
+.social-icons a {
+  /* display: inline-block; */
+  margin-left: 30px;
+}
