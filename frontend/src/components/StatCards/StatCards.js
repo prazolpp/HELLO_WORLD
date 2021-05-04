@@ -1,13 +1,16 @@
 import StatCard from '../StatCard/StatCard';
 import SearchBar from '../SearchBar/SearchBar';
 
-const StatCards = ({platform, usersInfoState, setTwitterName, setYoutubeName, username}) => {
+const StatCards = ({platform, usersInfoState, setTwitterName, setYoutubeName, setInstagramName}) => {
 
 
     let statcards_youtube = ""
     let statcards_twitter = ""
+    let statcards_instagram = ""
     let search_youtube = ""
     let search_twitter = ""
+    let search_instagram = ""
+
 
     const youtube_stats = ["followers", "posts", "views"]
     if(platform == "Youtube"){
@@ -28,6 +31,17 @@ const StatCards = ({platform, usersInfoState, setTwitterName, setYoutubeName, us
             })
         }
     }
+
+    const insta_stats = ["followers", "posts", "following"]
+    if(platform == "Instagram"){
+        search_instagram = <SearchBar keyword={usersInfoState.instagramName} handleChange={setInstagramName} />
+        if(usersInfoState.instagramName){
+            statcards_instagram = insta_stats.map((media,i) => {
+                return <StatCard media={`${platform} ${media} for ${usersInfoState.instagramName}`} number={usersInfoState.data.instagram[media]} pastNumber={usersInfoState.data.instagram[media]} />
+            })
+        }
+    }
+    
     return (
         <div class="StatCards">
             {search_youtube }
@@ -37,6 +51,10 @@ const StatCards = ({platform, usersInfoState, setTwitterName, setYoutubeName, us
             {search_twitter}
             <div class="statCards">
                 {statcards_twitter }
+            </div>
+            {search_instagram}
+            <div class="statCards">
+                {statcards_instagram }
             </div>
         </div>
     )
