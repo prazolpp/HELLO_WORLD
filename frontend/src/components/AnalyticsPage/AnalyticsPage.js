@@ -6,6 +6,8 @@ import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
 import StatCards from '../StatCards/StatCards';
+import {userContext} from '../../userContext';
+import GoogleSSO from '../GoogleSSO/GoogleSSO'
 
 const AnalyticsPage = ({username}) => {
 
@@ -85,23 +87,31 @@ const AnalyticsPage = ({username}) => {
                 }
             })
         })
-    }, [usersInfoState.twitterName, platform, usersInfoState.youtubeName]);
+    }, [usersInfoState.twitterName, platform, usersInfoState.youtubeName, userContext]);
 
     console.log(usersInfoState)
 
-    return (
-        <div className="Analytics">
-            <TopNav platform={platform} handleChange={handleChange}/>
-            <UserBio name={username} img={"https://yt3.ggpht.com/ytc/AAUvwnga3eXKkQgGU-3j1_jccZ0K9m6MbjepV0ksd7eBEw=s176-c-k-c0x00ffffff-no-rj"} followers={55}/>
-            <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} usersInfoState={usersInfoState}/>
-            <ChartComponent />
-            {/*
-                <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
-                <UserData data={usersInfoState.data} />
-            */}
+    if(userContext.value == undefined){
+        console.log(userContext.value)
+        return(<GoogleSSO />);
+   }else {
+        return (
+            <div className="Analytics">
+                <TopNav platform={platform} handleChange={handleChange}/>
+                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} />
+                <div class="prompt">
+                    Choose a platform from the top right corner and enter your social media id below! 
+                </div>
+                <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} usersInfoState={usersInfoState}/>
+                <ChartComponent />
+                {/*
+                    <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
+                    <UserData data={usersInfoState.data} />
+                */}
 
-        </div>
-    );
+            </div>
+        );
+    }
 };
 
 export default AnalyticsPage ;

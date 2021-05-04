@@ -13,29 +13,11 @@ const ProfilePage = ({username}) => {
     //use Effect to make api call to gather image and tweet info
     // trickle down the data from this component to child components to display in each of them 
     const [usersInfoState, setUsersInfoState] = useState({
-        username: username,
         image : '',
         bio: '',
-        data: {}
+        data: {}, 
+        userContext: userContext
     });
-    useEffect(() => {
-        let requestObj = {
-            url: `${getTwitterData}/${username}`,
-        }
-        //todo: change the values in the usersInfoState to match the twitter api
-        sendRequest(requestObj).then((usersInfo) => {
-            {console.log(usersInfo)}
-            setUsersInfoState({
-                username: usersInfo[0].name,
-                image : "",
-                bio: "",
-                data: {
-                    followers: usersInfo[0].formatted_followers_count
-                }
-            });
-        });
-        
-    }, [username]);
 
     if(userContext.value !== undefined){
         return (
@@ -43,7 +25,7 @@ const ProfilePage = ({username}) => {
                 <div className="coverpic">
                     <img src="https://pbs.twimg.com/profile_banners/44196397/1576183471/1500x500" ></img>
                 </div>
-                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} followers={55}/>
+                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <HorizontalNav />
                 <UserStats />
                 {/*
