@@ -92,6 +92,28 @@ async function getCard(cardID) {
   return doc.data();
 }
 
+// get card collection
+async function getCardCollection(id,collection) {
+  const collectionRef = await db.collection('cards').doc(id).collection(collection).get();
+  var obj = {};
+  collectionRef.forEach(doc => {
+    obj[doc.id] = doc.data();   
+  });
+  console.log(obj);
+  return obj;
+}
+
+async function getPlatformSnapshots(platform, handle) {
+  const snapshotRef = db.collection('snapshots').doc(platform+"_"+handle).collection("snaps");
+  const snapshot = await snapshotRef.get();
+  var obj = {};
+  snapshot.forEach(doc => {
+    obj[doc.id] = doc.data();   
+  });
+  return obj;
+}
+
+
 // share card with user
 async function shareCard(ownerID, sharedtoID, cardID) {
   // get card data
@@ -157,79 +179,18 @@ async function deleteCard(id,cardID) {
 */
 
 // insert new platform snapshot
-function insertNewPlatformSnapshot(id, platform, timestamp, snapshot) {
-  const snapshotsDb = db.collection('snapshots').doc(id).collection(platform).doc(timestamp.toString());
+function insertNewPlatformSnapshot(platform, handle, timestamp, snapshot) {
+  const snapshotsDb = db.collection('snapshots').doc(platform+"_"+handle).collection("snaps").doc(timestamp.toString());
   snapshotsDb.set(snapshot)
 }
 
 // get platform snapshots
-async function getPlatformSnapshots(id,platform) {
-  const snapshotRef = db.collection('snapshots').doc(id).collection(platform);
+async function getPlatformSnapshots(platform, handle) {
+  const snapshotRef = db.collection('snapshots').doc(platform+"_"+handle).collection("snaps");
   const snapshot = await snapshotRef.get();
   var obj = {};
   snapshot.forEach(doc => {
-    obj[doc.id] = doc.data();
+    obj[doc.id] = doc.data();   
 });
   return obj;
 }
-
-
-// user collection test
-var user_data = {
-  email:"jeff@gmail.com",
-  youtube:"youtube_username",
-  instagram:"@jeff_insta",
-  twitter:"@jeff_twitter",
-  tiktok:"@jeff_tiktok"
-}
-var user_data_empty = {}
-var new_data = {
-  tiktok:"@changed_jeff_tiktok"
-}
-//insertNewUser("test_user1");
-//getUser("test_user1");
-//updateUserField("test_user1",user_data);
-//deleteUser("test_user1");
-//getUser("test_user");
-
-
-// card collection test
-var card_data = {
-  id: "card_hashed_value",
-  name: "name",
-  email: "email",
-  phoneNumber: "911",
-  youtube: "youtube",
-	twitter: "twitter",
-  instagram: "instagram",
-	tiktok: "tiktok"
-}
-var new_data = {
-  tiktok:"@changed_jeff_tiktok"
-}
-/*
-newCardUser("test0");
-newCardUser("test1");
-newCardUser("test2");
-*/
-/*
-insertNewPersonalCard("test0", hashString("test0"+"cardName"), card_data);
-insertNewPersonalCard("test1", hashString("test1"+"cardName"), card_data);
-insertNewPersonalCard("test2", hashString("test2"+"cardName"), card_data);
-*/
-/*
-shareCard("test0","test1","2093805977");
-shareCard("test0","test2","2093805977");
-*/
-//deleteCard("test0","2093805977");
-//updateCard("test0","2093805977",new_data);
-//getCard("2093805977");
-
-var snapshot = {
-  followers: 1,
-  following: 2,
-  posts: 3,
-  likes: 4
-}
-//insertNewPlatformSnapshot("test_user", "tiktok", Date.now(), snapshot);
-getPlatformSnapshots("test_user","twitter");
