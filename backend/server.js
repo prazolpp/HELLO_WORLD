@@ -1,8 +1,8 @@
 const express = require('express');
 const cors = require('cors')
 const { sendRequest } = require('./sendRequest/sendRequest');
-const { twitterInfoApi, youtubeApi, youtubeIdApi } = require('./apis/apis');
-
+const { twitterInfoApi, youtubeApi, youtubeIdApi, instagramApi } = require('./apis/apis')
+const { lookup } = require('./twitter/twitter')
 require('dotenv').config();
 const app = express();
 app.use(cors());
@@ -16,23 +16,10 @@ firebase.initializeApp({
   credential: firebase.credential.cert(serviceAccount)
 });
 const db = firebase.firestore();
-
 // API calls
-app.get('/bio/twitter/:twitter_name', (req, res) => {
-  reqObj = {
-    url: `${twitterInfoApi}${req.params.twitter_name}`
-  }
-  //url: `${twitterInfoApi}${req.username}`,
-  const twitter_key = process.env.TWITTER_KEY
-  const twitter_value = process.env.TWITTER_VALUE 
-  console.log(twitter_key)
-  reqObj[twitter_key] = twitter_value
-  console.log(reqObj)
-
-  sendRequest(reqObj).then((data) => {
-    console.log(data)
-    res.send(data)
-  }).catch((err) => res.send(err))
+app.get('/bio/twitter/:twitter_name', async (req, res) => {
+  const twittername = req.params.twitter_name
+  lookup(twittername, res)
 });
 
 app.get('/bio/youtube/:youtube_name', (req, res) => {
@@ -54,7 +41,23 @@ app.get('/bio/youtube/:youtube_name', (req, res) => {
     sendRequest(reqObj).then((data) => {
       console.log(data)
       res.send(data)
-    })
+    }).catch((err) => res.send(err))
+  }).catch((err) => res.send(err))
+})
+
+app.get('/bio/instagram/:instagram_name', (req, res) => {
+
+  const username = req.params.instagram_name
+  reqObj = {
+    url: `${instagramApi}${username}/?__a=1`
+  }
+  console.log(username)
+  sendRequest(reqObj).then((data) => {
+    console.log(data)
+    res.send(data)
+  }).catch((err) => {
+    console.log(err)
+    res.send(err)
   })
 })
 
@@ -325,3 +328,4 @@ async function getPlatformSnapshots(platform, handle) {
 });
   return obj;
 }
+app.listen(port, () => console.log(`Listening on port ${port}`));

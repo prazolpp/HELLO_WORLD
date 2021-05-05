@@ -12,6 +12,7 @@ const sendRequest = (requestObj, headers = DEFAULT_HEADERS) => {
         data.json()
     );
     
+    
     return Promise.resolve(response);
 };
 

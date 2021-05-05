@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AnalyticsPage from '../../components/AnalyticsPage/AnalyticsPage';
 import LandingPage from '../../components/LandingPage/LandingPage';
@@ -6,17 +6,26 @@ import SearchPage from '../../components/SearchPage/SearchPage';
 import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
 import ProfilePage from '../../components/ProfilePage/ProfilePage'
-import GoogleSSO from '../../components/GoogleSSO/GoogleSSO';
+import {userContext} from '../../userContext';
 
 const App = () => {
+    // useEffect(() => {
+    //     if(getUser(userContext.value.uid)){
+    //         console.log("already signed up")
+    //     }
+    //     else{
+    //         insertNewUser(userContext.value.uid)
+    //         console.log("added new user")
+    //     }
+    // },userContext)
     return (
         <Router>
             <div className="App">
                 <Navbar />
                 <div className="appContent">
                     <Route path="/landingpage" component={LandingPage} />
-                    <Route path="/analytics" render={() => <AnalyticsPage username="elonmusk"/>} />
-                    <Route path="/profile" render={() => <ProfilePage username="elonmusk"/>}/>  
+                    <Route path="/analytics" render={() => <AnalyticsPage />} />
+                    <Route path="/profile" render={() => <ProfilePage />}/>  
                     <Route path="/searchpage" render={SearchPage} />
                     {/* <Route path="/googleSSO" render={GoogleSSO} /> */}
                 </div>

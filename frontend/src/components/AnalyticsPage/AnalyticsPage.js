@@ -1,53 +1,73 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
-import { getTwitterData, getYoutubeData } from '../../apis/apis';
+import { getTwitterData, getYoutubeData, getInstagramData} from '../../apis/apis';
 import './AnalyticsPage.css';
 import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
-import StatCard from '../StatCard/StatCard';
+import StatCards from '../StatCards/StatCards';
+import {userContext} from '../../userContext';
+import GoogleSSO from '../GoogleSSO/GoogleSSO'
 
-const AnalyticsPage = ({username}) => {
+const AnalyticsPage = ({}) => {
 
     //use Effect to make api call to gather image and tweet info
     // trickle down the data from this component to child components to display in each of them 
     const [usersInfoState, setUsersInfoState] = useState({
-        username: username,
+        userid: "",
+        youtubeName: "",
+        twitterName: "",
+        instagramName: "",
         image : '',
         bio: '',
         data: {
-            youtube:{}
+            youtube:{},
+            instagram:{},
+            twitter:{},
+            tiktok:{}
         }
-    });
- 
-    
-    const medias = ["followers", "posts", "views"]
-    username = "PewDiePie"
-    let statcards = ""
-    useEffect(() => {
-        {/*
-        // todo: replace username with each usernames of each media
-        let twitterRequestObj = {
-            url: `${getTwitterData}/${username}`,
-        }
+    })
+    const [platform, setPlatform] = useState("Twitter")
+    const  handleChange = (event) => setPlatform(event.target.value);
 
-        //todo: change the values in the usersInfoState to match the twitter api
-        sendRequest(twitterRequestObj).then((usersInfo) => {
-            {console.log(usersInfo)}
+    // const medias = {
+    //     youtube: ["followers", "posts", "views"],
+    //     instagram: ["followers", "posts", "following"],
+    //     tiktok: []
+    // }
+    const setYoutubeName = (e) => {
+        if(e.key == "Enter"){
             setUsersInfoState({
-                data: {
-                    ...usersInfoState.data,
-                    followers: usersInfo[0].formatted_followers_count
-                }
-            });
-        });
-    */}
+                ...usersInfoState,
+                youtubeName: e.target.value
+            })
+        }
+    }
+    const setTwitterName = (e) => {
+        if(e.key == "Enter"){
+            setUsersInfoState({
+                ...usersInfoState,
+                twitterName: e.target.value
+            })
+        }
+    }
+    const setInstagramName = (e) => {
+        if(e.key == "Enter"){
+            setUsersInfoState({
+                ...usersInfoState,
+                instagramName: e.target.value
+            })
+        }
+    }
+
+    useEffect(() => {
         let youtubeRequestObj = {
-            url: `${getYoutubeData}/${username}`
+            url: `${getYoutubeData}/${usersInfoState.youtubeName}`
         }
 
         sendRequest(youtubeRequestObj).then((usersInfo) => {
             setUsersInfoState({
+                ...usersInfoState,
                 data: { 
                     ...usersInfoState.data, 
                     youtube:{
@@ -58,29 +78,65 @@ const AnalyticsPage = ({username}) => {
                 }
             })
         })
+        let twitterRequestObj = {
+            url: `${getTwitterData}/${usersInfoState.twitterName}`
+        }
 
-        
-    }, [username]);
+        sendRequest(twitterRequestObj).then((usersInfo) => {
+            setUsersInfoState({
+                ...usersInfoState,
+                data: { 
+                    ...usersInfoState.data, 
+                    twitter:{
+                        followers: usersInfo.followers_count,
+                        posts: usersInfo.statuses_count,
+                        following: usersInfo.friends_count
+                    }
+                }
+            })
+        })
+        let instaRequestObj = {
+            url: `${getInstagramData}/${usersInfoState.instagramName}`
+        }
+        sendRequest(instaRequestObj).then((usersInfo) => {
+            setUsersInfoState({
+                ...usersInfoState,
+                data: { 
+                    ...usersInfoState.data, 
+                    instagram:{
+                        followers: usersInfo.graphql.user.edge_followed_by.count || 0,
+                        posts: 0,
+                        following: usersInfo.graphql.user.edge_follow.count|| 0
+                    }
+                }
+            })
+        }).catch((error) => console.log)
+
+    }, [usersInfoState.twitterName, usersInfoState.youtubeName, platform, userContext]);
 
     console.log(usersInfoState)
-    statcards = medias.map((media,i) => {
-        return <StatCard media={"Youtube " + media} number={usersInfoState.data.youtube[media]} pastNumber={usersInfoState.data.youtube[media]} />
-    })
 
-    return (
-        <div className="Analytics">
-            <TopNav />
-            <UserBio name={username} img={"https://yt3.ggpht.com/ytc/AAUvwnga3eXKkQgGU-3j1_jccZ0K9m6MbjepV0ksd7eBEw=s176-c-k-c0x00ffffff-no-rj"} followers={55}/>
-            <div className="statCards">
-                {statcards}
+     if(userContext.value == undefined){
+         console.log(userContext.value)
+         return(<GoogleSSO />);
+    }else {
+        return (
+            <div className="Analytics">
+                <TopNav platform={platform} handleChange={handleChange}/>
+                <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} />
+                <div class="prompt">
+                    Choose a platform from the top right corner and enter your social media id below! 
+                </div>
+                <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} setInstagramName={setInstagramName} usersInfoState={usersInfoState}/>
+                <ChartComponent />
+                {/*
+                    <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
+                    <UserData data={usersInfoState.data} />
+                */}
+
             </div>
-            <ChartComponent />
-            {/*
-                <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
-                <UserData data={usersInfoState.data} />
-            */}
-        </div>
-    );
+        );
+    }
 };
 
 export default AnalyticsPage ;
