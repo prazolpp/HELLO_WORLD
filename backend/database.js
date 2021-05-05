@@ -103,17 +103,6 @@ async function getCardCollection(id,collection) {
   return obj;
 }
 
-async function getPlatformSnapshots(platform, handle) {
-  const snapshotRef = db.collection('snapshots').doc(platform+"_"+handle).collection("snaps");
-  const snapshot = await snapshotRef.get();
-  var obj = {};
-  snapshot.forEach(doc => {
-    obj[doc.id] = doc.data();   
-  });
-  return obj;
-}
-
-
 // share card with user
 async function shareCard(ownerID, sharedtoID, cardID) {
   // get card data
@@ -194,3 +183,4 @@ async function getPlatformSnapshots(platform, handle) {
 });
   return obj;
 }
+module.exports = {insertNewUser, getUser, updateUserField, deleteUser, newCardUser, insertNewPersonalCard, getCard, getCardCollection, shareCard, updateCard, deleteCard, insertNewPlatformSnapshot, getPlatformSnapshots, hashString};
