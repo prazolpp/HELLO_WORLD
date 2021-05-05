@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import Status from '../Status/Status';
+import PersonalCards from '../PersonalCards/PersonalCards';
 import BusinessCard from '../BusinessCard/BusinessCard';
 import MyStats from '../MyStats/MyStats';
 import Share from '../Share/Share';
 import './HorizontalNav.css';
 
-const HorizontalNav = (props) => {
+const HorizontalNav = ({name, img}) => {
     const [navState, setNavState] = useState(0);
 
     const showBox = (num) => {
@@ -19,19 +19,19 @@ const HorizontalNav = (props) => {
         return "tab"
     })
 
-    const status = navState == 0 && <Status />;
-    const mystats = navState == 1 && <MyStats/>;
-    const businesscard = navState == 2 && <BusinessCard />;
+    const personalcards = navState == 0 && <MyStats/>;
+    const mystats = navState == 1 &&  <PersonalCards username={name} img={img} />;
+    const businesscard = navState == 2 && <BusinessCard username={name} img={img}/>;
     const share = navState == 3 && <Share />;
 
     return (
         <div className="UserProfile">
             <div className="profile-tab-nav">
                 <div className={classNames[0]} onClick={() => {showBox(0)}}>
-                    Status
+                    Personal 
                 </div>
                 <div className={classNames[1]} onClick={() => {showBox(1)}}>
-                    Stats
+                    Personal Business Cards
                 </div>
                 <div className={classNames[2]} onClick={() => {showBox(2)}}>
                     Business Card
@@ -42,7 +42,7 @@ const HorizontalNav = (props) => {
             </div>
 
             <div className="tab-container">
-                {status}
+                {personalcards}
                 {mystats}
                 {businesscard}
                 {share}

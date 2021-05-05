@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './SearchPage.css';
-
+import 'font-awesome/css/font-awesome.min.css';
 
 const SearchPage = ({}) => {
 
@@ -29,9 +28,7 @@ const SearchPage = ({}) => {
 
             <div className="container">
                 <input type="text" placeholder="Search" />
-                <a href="">
-                    <FontAwesomeIcon icon={["fas", "search"]} color="red"/>
-                </a>
+                <a href=""><i className="fa fa-search"> </i> </a>
             </div>
 
             <div className="logos">

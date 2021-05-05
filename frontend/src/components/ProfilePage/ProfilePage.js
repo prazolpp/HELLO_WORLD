@@ -26,7 +26,7 @@ const ProfilePage = ({username}) => {
                     <img src="https://pbs.twimg.com/profile_banners/44196397/1576183471/1500x500" ></img>
                 </div>
                 <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
-                <HorizontalNav />
+                <HorizontalNav name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <UserStats />
                 {/*
                     <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
