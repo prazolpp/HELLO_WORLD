@@ -12,6 +12,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "firebase-admin": "^9.7.0",
     "instagram": "^0.0.4",
     "instagram-web-api": "^2.2.2",
     "node-fetch": "^2.6.1",

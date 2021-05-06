@@ -17,7 +17,7 @@ const BusinessCard = ({username, img, info=[], sendEmail}) => {
         
         <ul className="social-icons">
             {medias}
-             {/* <li>
+             {/* <li>q
                 <a href="http://your_url_here.html" target="_blank"><i className="fa fa-instagram"> Instagram</i></a>
             </li>
 

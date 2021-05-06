@@ -9,7 +9,7 @@ const ChartComponent = (props) => {
     
     const [dropdownOpen, setDropdownOpen] = useState("All");
     const  handleChange = (event) => setDropdownOpen(event.target.value);
-    const options = ["week", "month", "last_year"]
+    const options = ["week", "months", "years"]
     
     return (
         <div className="ChartComponent">

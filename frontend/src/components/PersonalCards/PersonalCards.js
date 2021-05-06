@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import BusinessCard from '../BusinessCard/BusinessCard';
 import './PersonalCards.css'
+import {userContext} from '../../userContext';
 
 const PersonalCards = ({username, img}) => {
     const sendEmail = () => {
@@ -37,6 +38,7 @@ const PersonalCards = ({username, img}) => {
                 username:"elonmusk"
             }
         ],
+        
         
 
     ]

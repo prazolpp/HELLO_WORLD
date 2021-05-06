@@ -3,7 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 40px;
-    max-width: 30em;
+    max-width: 40em;
     min-width: 21em;
     text-align: center;
     transition: visibility 0.5s;
