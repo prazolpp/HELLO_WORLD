@@ -54,7 +54,7 @@ const options =  {
     maintainAspectRatio: false    
 }                   
 
-const LineCharts = ({dropdownOpen, twitterName, instaName, youtubeName}) => {
+const LineCharts = ({dropdownOpen,twitterName, instaName, youtubeName}) => {
 
   const [time, setTime] = useState(dropdownOpen)
 

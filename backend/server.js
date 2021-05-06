@@ -88,6 +88,7 @@ app.post('/db/user/delete/:id', async (req, res) => {
 // new card user
 app.post('/db/card/newUser/:id', async (req, res) => {
   const id = req.params.id;
+  console.log("added user")
   res.send(await newCardUser(id));
 })
 

@@ -7,7 +7,44 @@ import './HorizontalNav.css';
 import AddCard from '../AddCard/AddCard';
 
 const HorizontalNav = ({name, img}) => {
-    const [navState, setNavState] = useState(0);
+    const [navState, setNavState] = useState(1);
+    const [cards, setCards] = useState([
+        [
+            {
+                name:"youtube",
+                username:"pewdiepie"
+            }, 
+            {
+                name:"twitter",
+                username:"pewdiepie",
+            },
+            {
+                name:"instagram",
+                username:"pewdiepie"
+            }
+        ],
+        [
+            {
+                name:"youtube",
+                username:"elonmusk"
+            }, 
+            {
+                name:"twitter",
+                username:"elonmusk",
+            },
+            {
+                name:"instagram",
+                username:"elonmusk"
+            }
+        ],
+    ])
+
+    const addCard = (card_arr) => {
+        cards.push(card_arr)
+        console.log(cards)
+        setCards(cards)
+        console.log("heereee!!")
+    }
 
     const showBox = (num) => {
         setNavState(num);
@@ -20,10 +57,25 @@ const HorizontalNav = ({name, img}) => {
         return "tab"
     })
 
+    let friendInfo =  [
+        {
+            name:"youtube",
+            username:"jmadders"
+        }, 
+        {
+            name:"twitter",
+            username:"madders",
+        },
+        {
+            name:"instagram",
+            username:"madders"
+        }
+    ]
+    const friendimg = "https://www.thesun.co.uk/wp-content/uploads/2019/11/NINTCHDBPICT000510608517-e1574333428323.jpg"
     // const stats = navState == 0 && <MyStats/>;
-    const personalcards = navState == 1 &&  <PersonalCards username={name} img={img} />;
-    const businesscard = navState == 2 && <BusinessCard username={"James Maddison"} img={img}/>;
-    const share = navState == 3 && <AddCard />;
+    const personalcards = navState == 1 &&  <PersonalCards username={name} img={img} cards={cards}/>;
+    const businesscard = navState == 2 && <BusinessCard username={"James Maddison"} info={friendInfo} img={friendimg} />;
+    const share = navState == 3 && <AddCard addCard={addCard}/>;
 
     return (
         <div className="UserProfile">
