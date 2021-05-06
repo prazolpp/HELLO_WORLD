@@ -17,7 +17,7 @@ const UserBio = ({name, img, bio, followers}) => {
                 <div className="bio">
                     Hello I am a huge fan of Klout! Love this App!
                 </div>
-                <div className="followStat">
+                {/* <div className="followStat">
                     <div className="followers">
                         Followers 
                     </div>
@@ -30,7 +30,7 @@ const UserBio = ({name, img, bio, followers}) => {
                     <div className="numFollowing">
                         25
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import './BusinessCard.css';
+import 'font-awesome/css/font-awesome.min.css';
+import ShareButton from '../ShareButton/ShareButton'
 
-const BusinessCard = () => {
+const BusinessCard = ({username, img, info=[], sendEmail}) => {
+
+    let medias = ""
+    medias = info.map((media, i) => <li><a className="link" href={`https://www.${media.name}.com/${media.username}`} target="_blank"><i className={`fa fa-${media.name}`}></i>{"   "+ media.username}</a></li>)
+
     return (
         <div className="card">
-        <img src="https://lh3.googleusercontent.com/pZwZJ5HIL5iKbA91UGMUIPR0VJWa3K0vOGzDZmY6wU3EJBUdfsby3VEyxU162XxTyOyP3D154tjkr-4Jgcx8lygYUR8eB-jVmld4dsHi1c-mE_A8jKccseAG7bdEwVrcuuk6ciNtSw=s170-no"
+        <img src={img}
             alt="Person" className="card__image" />
-        <p className="card__name">John Brown</p>
+        <p className="card__name">{username}</p>
 
+        
         <ul className="social-icons">
-            <li>
+            {medias}
+             {/* <li>q
                 <a href="http://your_url_here.html" target="_blank"><i className="fa fa-instagram"> Instagram</i></a>
             </li>
 
@@ -19,8 +27,9 @@ const BusinessCard = () => {
 
             <li>
                 <a href="http://your_url_here.html" target="_blank"><i className="fa fa-youtube"> YouTube</i></a>
-            </li>
+            </li>  */}
         </ul>
+        <ShareButton sendEmail={sendEmail}/>
     </div>
     )
 }

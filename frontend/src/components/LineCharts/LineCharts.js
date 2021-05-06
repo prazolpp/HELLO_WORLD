@@ -3,9 +3,13 @@ import { sendRequest } from '../../sendRequest/sendRequest';
 import { Line } from 'react-chartjs-2';
 import './LineCharts.css';
 
-const followData = {
-    labels: ['January', 'February', 'March',
-             'April', 'May'],
+const weeks = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"]
+const months = [ "Jan", "Feb", "March", "April", "May", "June",
+"July", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+const years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2019", "2020", "2021"]
+
+let followData = {
+    labels: months,
     datasets: [
       {
         label: 'Twitter Followers',
@@ -50,8 +54,19 @@ const options =  {
     maintainAspectRatio: false    
 }                   
 
-const LineCharts = ({twitterName, instaName, youtubeName}) => {
+const LineCharts = ({dropdownOpen, twitterName, instaName, youtubeName}) => {
 
+  const [time, setTime] = useState(dropdownOpen)
+
+    if(dropdownOpen == 'week'){
+      followData.labels = weeks
+    }
+    else if (dropdownOpen == "months"){
+      followData.labels = months
+    }
+    else if(dropdownOpen == "years"){
+      followData.labels = years
+    }
     return (
         <div className="LineCharts">
             <Line

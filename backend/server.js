@@ -147,9 +147,6 @@ app.get('/db/snapshot/get/:platform/:handle', async (req, res) => {
   res.send(await getPlatformSnapshots(platform, handle));
 })
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
-
-
 
 // database operations
 function hashString(string) {
@@ -206,11 +203,18 @@ async function deleteUser(id) {
 
 // new card user
 function newCardUser(id) {
-  const user = db.collection('cards').doc(id);
-  user.set({
-    myCards: [null],
-    sharedCards: [null]
-  })
+  const userRef = db.collection('cards').doc(id);
+  userRef.get()
+    .then((docSnapshot) => {
+      if (docSnapshot.exists) {
+        return 
+      } else {
+        user.set({
+            myCards: [null],
+            sharedCards: [null]
+        })
+      }
+  });
 }
 
 // insert new personal card
@@ -306,7 +310,6 @@ async function deleteCard(id,cardID) {
   });
   
 }
-
 
 /**
 * CRUD operations on snapshots collection
