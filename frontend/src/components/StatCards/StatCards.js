@@ -43,17 +43,17 @@ const StatCards = ({platform, usersInfoState, setTwitterName, setYoutubeName, se
     }
     
     return (
-        <div class="StatCards">
+        <div className="StatCards">
             {search_youtube }
-            <div class="statCards">
+            <div className="statCards">
                 {statcards_youtube}
             </div>
             {search_twitter}
-            <div class="statCards">
+            <div className="statCards">
                 {statcards_twitter }
             </div>
             {search_instagram}
-            <div class="statCards">
+            <div className="statCards">
                 {statcards_instagram }
             </div>
         </div>

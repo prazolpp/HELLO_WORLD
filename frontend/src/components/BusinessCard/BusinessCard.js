@@ -3,10 +3,11 @@ import './BusinessCard.css';
 import 'font-awesome/css/font-awesome.min.css';
 import ShareButton from '../ShareButton/ShareButton'
 
-const BusinessCard = ({username, img, info=[], sendEmail}) => {
+const BusinessCard = ({username, img, cardnum, info={}, sendEmail}) => {
 
     let medias = ""
-    medias = info.map((media, i) => <li><a className="link" href={`https://www.${media.name}.com/${media.username}`} target="_blank"><i className={`fa fa-${media.name}`}></i>{"   "+ media.username}</a></li>)
+    let cardNum = cardnum
+    medias = Object.keys(info).map((media, i) => <li key={i} ><a className="link" href={`https://www.${info[media]}.com/${info[media]}`} target="_blank"><i className={`fa fa-${media}`}></i>{"   "+ info[media]}</a></li>)
 
     return (
         <div className="card">
@@ -29,7 +30,7 @@ const BusinessCard = ({username, img, info=[], sendEmail}) => {
                 <a href="http://your_url_here.html" target="_blank"><i className="fa fa-youtube"> YouTube</i></a>
             </li>  */}
         </ul>
-        <ShareButton sendEmail={sendEmail}/>
+        <ShareButton />
     </div>
     )
 }

@@ -3,7 +3,7 @@ import { addCard, addCardUser} from '../../apis/apis';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import {userContext} from '../../userContext';
 
-const AddCard = ({addCard}) => {
+const AddCard = ({cardAdder}) => {
 
     const [userData, setUserData] = useState({
         field1name: "",
@@ -14,56 +14,34 @@ const AddCard = ({addCard}) => {
         field3val: "",
     })
     
-
-
-    let cardname = Math.random(Number.MAX_SIZE)
+    let card =   {
+        [userData.field1name]: userData.field1val,
+        [userData.field2name]: userData.field2val,
+        [userData.field3name]: userData.field3val,
+    }         
 
     const onSubmit = (e) => {
         e.preventDefault()
-        let card = [
-            {
-             name: userData.field1name,
-             username:  userData.field1val
-            },
-            {
-                name: userData.field2name,
-                username:  userData.field2val
-               
-            },
-            {
-                name: userData.field3name,
-                username:  userData.field3val
-            },
-        ]
-
+        let addCard = "http://localhost:5000/db/card/newCard"
+        let cardname = Math.random(Number.MAX_SIZE)
         let requestObj = {
             url: `${addCard}/${userContext.value.uid}/${cardname}`,
             method: 'POST',
-            body: JSON.stringify(card)
+            body: JSON.stringify({
+                [userData.field1name]: userData.field1val,
+                [userData.field2name]: userData.field2val,
+                [userData.field3name]: userData.field3val,
+            })
         };
 
+        sendRequest(requestObj).then((data) => console.log)
         alert("A new card has been added. Please go to personal cards to view it")
-        addCard(card)
-        // let card = {
+        cardAdder({cardname: card})
+        // let card = 
         //     [userData.field1name] : userData.field1val,
         //     [userData.field2name] : userData.field2val,
         //     [userData.field3name] : userData.field3val
         // }
-
-        let reqObj = {
-            url: `${addCardUser}/${userContext.value.uid}`,
-            method: 'POST'
-        }
-
-        sendRequest(reqObj).then((data) => {
-            console.log(data)
-            return data
-        }).then((d) => {
-            sendRequest(requestObj).then((data) => {
-                alert("Your Kard has been added!!")
-                console.log(data)
-            });
-        })
 
     }
 
@@ -77,7 +55,7 @@ const AddCard = ({addCard}) => {
 
 
     return (
-        <form class="addCard" onSubmit={onSubmit}>
+        <form className="addCard" onSubmit={onSubmit}>
         <label>
             Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field1name" onChange={handleInputChange}/>

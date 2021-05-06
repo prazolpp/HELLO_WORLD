@@ -124,7 +124,7 @@ const AnalyticsPage = ({}) => {
             <div className="Analytics">
                 <TopNav platform={platform} handleChange={handleChange}/>
                 <UserBio name={userContext.value.displayName} img={userContext.value.photoURL} />
-                <div class="prompt">
+                <div className="prompt">
                     Choose a platform from the top right corner and enter your social media id below! 
                 </div>
                 <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} setInstagramName={setInstagramName} usersInfoState={usersInfoState}/>

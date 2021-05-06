@@ -4,14 +4,9 @@ import './PersonalCards.css'
 import {userContext} from '../../userContext';
 
 const PersonalCards = ({username, img, cards}) => {
-    const sendEmail = () => {
-        //add functionality
-        alert("shared the card!!")
-        return 
-    }
 
     let businessCards = ""
-    businessCards = cards.map((card, i) => <BusinessCard username={username} img={img} info={card} sendEmail={sendEmail}/>)
+    businessCards = Object.keys(cards).map((cardnum, i) => <BusinessCard key={i} cardnum={cardnum} username={username} img={img} info={cards[cardnum]} />)
     return(
         <div className="allCards">{businessCards}</div>
     ) 

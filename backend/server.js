@@ -85,18 +85,12 @@ app.post('/db/user/delete/:id', async (req, res) => {
   res.send(await deleteUser(id));
 })
 
-// new card user
-app.post('/db/card/newUser/:id', async (req, res) => {
-  const id = req.params.id;
-  console.log("added user")
-  res.send(await newCardUser(id));
-})
-
 // new card
 app.post('/db/card/newCard/:id/:cardName', async (req, res) => {
   const id = req.params.id;
   const cardName = req.params.cardName;
   const cardid = hashString(id+cardName);
+  console.log(req.body)
   res.send(await insertNewPersonalCard(id,cardid,req.body));
 })
 
@@ -106,10 +100,12 @@ app.get('/db/card/getCard/:cardid', async (req, res) => {
   res.send(await getCard(cardid));
 })
 
+
 //get user card collection
 app.get('/db/card/getCardCollection/:id/:collection', async (req, res) => {
   const id = req.params.id;
   const collection = req.params.collection;
+  console.log(id, collection)
   res.send(await getCardCollection(id, collection));
 })
 
@@ -174,6 +170,7 @@ function insertNewUser(id) {
   db.collection('users').doc(id).set({})
 }
 
+
 // get user handles
 async function getUser(id) {
   const userRef = db.collection('users').doc(id);
@@ -204,6 +201,12 @@ async function deleteUser(id) {
 
 // new card user
 function newCardUser(id) {
+    const user = db.collection('cards').doc(id);
+    user.set({
+      myCards: [null],
+      sharedCards: [null]
+    })
+  
   const userRef = db.collection('cards').doc(id);
   userRef.get()
     .then((docSnapshot) => {
@@ -220,6 +223,12 @@ function newCardUser(id) {
 
 // insert new personal card
 async function insertNewPersonalCard(id, cardID, fields) {
+  // create card user if doesn't exist
+  const doc = await db.collection('cards').doc(id).get();
+  if (!doc.exists) {
+    await newCardUser(id);
+  }
+
   // insert card
   const personalCards = db.collection('cards').doc(id).collection("myCards").doc(cardID);
   personalCards.set(fields)
@@ -229,7 +238,6 @@ async function insertNewPersonalCard(id, cardID, fields) {
     myCards: firebase.firestore.FieldValue.arrayUnion(cardID)
   });
 }
-
 
 // get card
 async function getCard(cardID) {
