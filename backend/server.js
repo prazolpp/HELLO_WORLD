@@ -62,9 +62,10 @@ app.get('/bio/instagram/:instagram_name', (req, res) => {
 })
 
 // insert new user
-app.post('/db/user/insert/:id', async (req, res) => {
+app.post('/db/user/insert/:id/:email', async (req, res) => {
   const id = req.params.id;
-  res.send(await insertNewUser(id));
+  const email = req.params.email
+  res.send(await insertNewUser(id, email));
 })
 
 // get user data
@@ -177,8 +178,10 @@ function hashString(string) {
 */
 
 // insert new user
-function insertNewUser(id) {
-  db.collection('users').doc(id).set({})
+function insertNewUser(id, email) {
+  db.collection('users').doc(id).set({
+    email: email
+  })
 }
 
 // get user handles
