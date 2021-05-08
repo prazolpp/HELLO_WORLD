@@ -179,9 +179,17 @@ function hashString(string) {
 
 // insert new user
 function insertNewUser(id, email) {
-  db.collection('users').doc(id).set({
-    email: email
-  })
+  const userRef = db.collection('users').doc(id);
+  userRef.get()
+    .then((docSnapshot) => {
+      if (docSnapshot.exists) {
+        return 
+      } else {
+        userRef.set({
+            email: email
+        })
+      }
+  });
 }
 
 // get user handles
