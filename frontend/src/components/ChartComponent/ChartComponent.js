@@ -8,14 +8,12 @@ import Dropdown from '../Dropdown/Dropdown'
 const ChartComponent = (props) => {
     
     const [dropdownOpen, setDropdownOpen] = useState("All");
-    const  handleChange = (event) => setDropdownOpen(event.target.value);
-    const options = ["week", "months", "years"]
+    const  handleChange = (event) => {
+        setDropdownOpen(event.target.value);
+    }
     
     return (
         <div className="ChartComponent">
-            <div className="Header">
-                <Dropdown options={options} optionNames={options} dropdownOpen={dropdownOpen} handleChange={handleChange}/>
-            </div>
             <LineCharts timePeriod={dropdownOpen} twitterName="" instaName="" youtubeName=""/>
         </div>
     )

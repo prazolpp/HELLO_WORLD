@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
+import { getPlatformSnapshots, getSnapshot, getYoutubeData } from '../../apis/apis'
 import { Line } from 'react-chartjs-2';
 import './LineCharts.css';
 
-const weeks = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"]
-const months = [ "Jan", "Feb", "March", "April", "May", "June",
+let weeks = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"]
+let months = [ "Jan", "Feb", "March", "April", "May", "June",
 "July", "Aug", "Sep", "Oct", "Nov", "Dec" ];
-const years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2019", "2020", "2021"]
+let years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2019", "2020", "2021"]
 
 let followData = {
     labels: months,
@@ -44,7 +45,7 @@ let followData = {
 const options =  {
     title:{
         display:true,
-        text:'Social Media Statistics',
+        text:'Social Media Statistics for the past year',
         fontSize:20
     },
     legend:{
@@ -54,19 +55,45 @@ const options =  {
     maintainAspectRatio: false    
 }                   
 
-const LineCharts = ({dropdownOpen,twitterName, instaName, youtubeName}) => {
+const LineCharts = ({twitter="", instagram="", youtube=""}) => {
 
-  const [time, setTime] = useState(dropdownOpen)
+    const [platformData, setPlatformData] = useState({
+      "twitter":[],
+      "youtube":[],
+      "instagram": []
+    })
 
-    if(dropdownOpen == 'week'){
-      followData.labels = weeks
-    }
-    else if (dropdownOpen == "months"){
-      followData.labels = months
-    }
-    else if(dropdownOpen == "years"){
-      followData.labels = years
-    }
+
+    useEffect(() => {
+      //"http://localhost:5000/db/snapshot/get/:platform/:handle"
+
+      let youtubeObj = {
+        url: `${getSnapshot}/youtube/${youtube}`
+      }
+      let twitterObj = {
+        url: `${getSnapshot}/youtube/${twitter}`
+      }
+      let instagramObj = {
+        url: `${getSnapshot}/youtube/${youtube}`
+      }
+      if(youtube){
+        sendRequest(youtubeObj).then((data) => {
+
+        })
+      }
+      if(twitter){
+        sendRequest(twitterObj).then((data) => {
+
+        })
+      }
+      if(instagram){
+        sendRequest(instagramObj).then((data) => {
+
+        })
+      }
+
+    }, platformData)
+  
     return (
         <div className="LineCharts">
             <Line

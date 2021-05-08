@@ -37,6 +37,7 @@ const AnalyticsPage = ({}) => {
     // }
     const setYoutubeName = (e) => {
         if(e.key == "Enter"){
+            e.preventDefault()
             setUsersInfoState({
                 ...usersInfoState,
                 youtubeName: e.target.value
@@ -45,6 +46,7 @@ const AnalyticsPage = ({}) => {
     }
     const setTwitterName = (e) => {
         if(e.key == "Enter"){
+            e.preventDefault()
             setUsersInfoState({
                 ...usersInfoState,
                 twitterName: e.target.value
@@ -52,6 +54,7 @@ const AnalyticsPage = ({}) => {
         }
     }
     const setInstagramName = (e) => {
+        e.preventDefault()
         if(e.key == "Enter"){
             setUsersInfoState({
                 ...usersInfoState,
@@ -77,9 +80,13 @@ const AnalyticsPage = ({}) => {
                     }
                 }
             })
+        }).catch((error) => {
+            if (usersInfoState.youtubeName !== ""){
+                alert("Account not found!")
+            }            
         })
         let twitterRequestObj = {
-            url: `${getTwitterData}/${usersInfoState.twitterName}`
+            url: `${getTwitterData}/${usersInfoState.twitterName}`,
         }
 
         sendRequest(twitterRequestObj).then((usersInfo) => {
@@ -94,11 +101,16 @@ const AnalyticsPage = ({}) => {
                     }
                 }
             })
+        }).catch((error) => {
+            if (usersInfoState.twitterName !== ""){
+                alert("Account not found!")
+            }            
         })
         let instaRequestObj = {
             url: `${getInstagramData}/${usersInfoState.instagramName}`
         }
         sendRequest(instaRequestObj).then((usersInfo) => {
+            console.log(usersInfo)
             setUsersInfoState({
                 ...usersInfoState,
                 data: { 
@@ -110,9 +122,13 @@ const AnalyticsPage = ({}) => {
                     }
                 }
             })
-        }).catch((error) => console.log)
+        }).catch((error) => {
+            if (usersInfoState.instagramName !== ""){
+                alert("Account not found!")
+            }            
+        })
 
-    }, [usersInfoState.twitterName, usersInfoState.youtubeName, platform, userContext]);
+    }, [usersInfoState.twitterName, usersInfoState.youtubeName, usersInfoState.instagramName]);
 
     console.log(usersInfoState)
 

@@ -34,9 +34,9 @@ const AddCard = ({cardAdder}) => {
             })
         };
 
-        sendRequest(requestObj).then((data) => console.log)
+        // sendRequest(requestObj).then((data) => console.log)
         alert("A new card has been added. Please go to personal cards to view it")
-        cardAdder({cardname: card})
+        // cardAdder({cardname: card})
         // let card = 
         //     [userData.field1name] : userData.field1val,
         //     [userData.field2name] : userData.field2val,

@@ -3,14 +3,14 @@ import PersonalCards from '../PersonalCards/PersonalCards';
 import BusinessCard from '../BusinessCard/BusinessCard';
 import MyStats from '../MyStats/MyStats';
 import Share from '../AddCard/AddCard';
-import './HorizontalNav.css';
+import './Kards.css';
 import AddCard from '../AddCard/AddCard';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import { getCards } from '../../apis/apis'
 import { userContext } from '../../userContext';
 
  
-const HorizontalNav = ({name, img}) => {
+const Kards = ({name, img}) => {
     const [navState, setNavState] = useState(1);
     const [cards, setCards] = useState({
         "11111":{
@@ -98,4 +98,4 @@ const HorizontalNav = ({name, img}) => {
     );
 };
 
-export default HorizontalNav;
+export default Kards;
