@@ -2,8 +2,9 @@ import dotenv from 'dotenv'
 import firebase from "firebase/app";
 import "firebase/auth";
 import {userContext} from '../userContext';
-dotenv.config()
 
+
+dotenv.config()
 firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,

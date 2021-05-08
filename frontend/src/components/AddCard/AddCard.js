@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { addCard } from '../../apis/apis';
+import { addCard, addCardUser} from '../../apis/apis';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import {userContext} from '../../userContext';
 
-const AddCard = () => {
+const AddCard = ({cardAdder}) => {
 
     const [userData, setUserData] = useState({
         field1name: "",
@@ -14,27 +14,35 @@ const AddCard = () => {
         field3val: "",
     })
     
-
-
-    let cardname = Math.random(Number.MAX_SIZE)
-    const requestObj = {
-        url: `${addCard}/${userContext.value.uid}/${cardname}`,
-        method: 'POST'
-    };
+    let card =   {
+        [userData.field1name]: userData.field1val,
+        [userData.field2name]: userData.field2val,
+        [userData.field3name]: userData.field3val,
+    }         
 
     const onSubmit = (e) => {
         e.preventDefault()
-        let card = {
-            [userData.field1name] : userData.field1val,
-            [userData.field2name] : userData.field2val,
-            [userData.field3name] : userData.field3val
-        }
-        requestObj.body = JSON.stringify(card)
-        console.log(requestObj)
-        sendRequest(requestObj).then((data) => {
-            alert("Your Kard has been added!!")
-            console.log(data)
-        });
+        let addCard = "http://localhost:5000/db/card/newCard"
+        let cardname = Math.random(Number.MAX_SIZE)
+        let requestObj = {
+            url: `${addCard}/${userContext.value.uid}/${cardname}`,
+            method: 'POST',
+            body: JSON.stringify({
+                [userData.field1name]: userData.field1val,
+                [userData.field2name]: userData.field2val,
+                [userData.field3name]: userData.field3val,
+            })
+        };
+
+        // sendRequest(requestObj).then((data) => console.log)
+        alert("A new card has been added. Please go to personal cards to view it")
+        // cardAdder({cardname: card})
+        // let card = 
+        //     [userData.field1name] : userData.field1val,
+        //     [userData.field2name] : userData.field2val,
+        //     [userData.field3name] : userData.field3val
+        // }
+
     }
 
     const handleInputChange = (event) => {
@@ -47,20 +55,20 @@ const AddCard = () => {
 
 
     return (
-        <form onSubmit={onSubmit}>
+        <form className="addCard" onSubmit={onSubmit}>
         <label>
-            First social media and your account name
+            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field1name" onChange={handleInputChange}/>
             <input type="text" name="field1val" onChange={handleInputChange}/>
         </label><br /><br /><br />
 
         <label>
-            Second social media and your account name
+            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field2name" onChange={handleInputChange}/>
             <input type="text" name="field2val" onChange={handleInputChange}/>
         </label><br /><br /><br />
         <label>
-            Third social media and your account name
+            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field3name" onChange={handleInputChange}/>
             <input type="text" name="field3val" onChange={handleInputChange}/>
         </label><br /><br /><br />

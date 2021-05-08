@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import {sendEmail} from '../../services/cardops'
 
-const ShareButton = ({sendEmail}) => {
+const ShareButton = () => {
 
     const [shareState, setshareState] = useState(false);
 
