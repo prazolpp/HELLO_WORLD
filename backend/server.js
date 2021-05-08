@@ -116,6 +116,14 @@ app.post('/db/card/shareCard/:id/:cardID', async (req, res) => {
   res.send(await shareCard(id, cardID));
 })
 
+//owner share by email
+app.post('/db/card/shareCard/:id/:cardID/:email', async (req, res) => {
+  const id = req.params.id;
+  const cardID = req.params.cardID;
+  const email = req.params.email;
+  res.send(await shareCardEmail(id, cardID, email));
+})
+
 //updateCard
 app.post('/db/card/updateCard/:id/:cardID', async (req, res) => {
   const id = req.params.id;
@@ -137,6 +145,13 @@ app.post('/db/snapshot/add/:platform/:handle', async (req, res) => {
   res.send(await insertNewPlatformSnapshot(platform, handle, Date.now(), req.body));
 })
 
+//get most recent snapshot
+app.get('/db/snapshot/recent/:platform/:handle', async (req, res) => {
+  const platform = req.params.platform;
+  const handle = req.params.handle;
+  res.send(await getMostRecent(platform, handle));
+})
+
 //getPlatformSnapshots
 app.get('/db/snapshot/get/:platform/:handle', async (req, res) => {
   const platform = req.params.platform;
@@ -146,18 +161,14 @@ app.get('/db/snapshot/get/:platform/:handle', async (req, res) => {
 
 
 // database operations
-function hashString(string) {
-                  
-  var hash = 0;
-    
+function hashString(string) {               
+  var hash = 0; 
   if (string.length == 0) return hash;
-    
   for (i = 0; i < string.length; i++) {
       char = string.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
   }
-    
   return hash.toString();
 }
 
@@ -170,7 +181,6 @@ function insertNewUser(id) {
   db.collection('users').doc(id).set({})
 }
 
-
 // get user handles
 async function getUser(id) {
   const userRef = db.collection('users').doc(id);
@@ -182,7 +192,6 @@ async function getUser(id) {
   }
   return doc.data();
 }
-
 
 // update user field
 async function updateUserField(id, fields) {
@@ -277,6 +286,28 @@ async function shareCard(sharedtoID, cardID) {
   }); 
 }
 
+// share by email
+async function shareCardEmail(id, cardID, email) {
+  // get card data
+  const data = await db.collection('cards').doc(id).collection('myCards').doc(cardID).get();
+
+  // find user
+  var sharedtoID = '';
+  const ownerRef = await db.collection('users').where('email', '==', email).get();
+  ownerRef.forEach(doc => {
+    sharedtoID = doc.id;
+  });
+
+  // add card to userID collection
+  const sharedCards = db.collection('cards').doc(sharedtoID).collection("sharedCards").doc(cardID);
+  sharedCards.set(data)
+
+  // update userID doc
+  const userRef = await db.collection('cards').doc(sharedtoID).update({
+    sharedCards: firebase.firestore.FieldValue.arrayUnion(cardID)
+  }); 
+}
+
 // update card
 async function updateCard(id,cardID,data) {
   const cardsRef = db.collection('cards');
@@ -326,8 +357,20 @@ async function deleteCard(id,cardID) {
 
 // insert new platform snapshot
 function insertNewPlatformSnapshot(platform, handle, timestamp, snapshot) {
-  const snapshotsDb = db.collection('snapshots').doc(platform+"_"+handle).collection("snaps").doc(timestamp.toString());
+  // update most recent 
+  const userRef = db.collection('snapshots').doc(platform+"_"+handle);
+  userRef.set(snapshot);
+  userRef.update({timestamp:timestamp});
+  // add to collection
+  const snapshotsDb = userRef.collection("snaps").doc(timestamp.toString());
   snapshotsDb.set(snapshot)
+}
+
+// get most recent snapshot
+async function getMostRecent(platform, handle) {
+  const userRef = db.collection('snapshots').doc(platform+"_"+handle);
+  const snapshot = await userRef.get();
+  return snapshot.data();
 }
 
 // get platform snapshots
