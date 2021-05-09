@@ -3,7 +3,7 @@ import { addCard, addCardUser} from '../../apis/apis';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import {userContext} from '../../userContext';
 
-const AddCard = ({cardAdder}) => {
+const AddCard = ({username, img, cardAdder}) => {
 
     const [userData, setUserData] = useState({
         field1name: "",
@@ -18,6 +18,8 @@ const AddCard = ({cardAdder}) => {
         [userData.field1name]: userData.field1val,
         [userData.field2name]: userData.field2val,
         [userData.field3name]: userData.field3val,
+        username: username,
+        img: img
     }         
 
     const onSubmit = (e) => {
@@ -31,12 +33,14 @@ const AddCard = ({cardAdder}) => {
                 [userData.field1name]: userData.field1val,
                 [userData.field2name]: userData.field2val,
                 [userData.field3name]: userData.field3val,
+                username: username,
+                img: img
             })
         };
 
-        // sendRequest(requestObj).then((data) => console.log)
+        sendRequest(requestObj).then((data) => console.log)
         alert("A new card has been added. Please go to personal cards to view it")
-        // cardAdder({cardname: card})
+        cardAdder({cardname: card})
         // let card = 
         //     [userData.field1name] : userData.field1val,
         //     [userData.field2name] : userData.field2val,

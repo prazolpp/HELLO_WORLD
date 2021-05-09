@@ -4,6 +4,8 @@ module.exports = {
     getInstagramData: "http://localhost:5000/bio/instagram",
     addCard: "http://localhost:5000/db/card/newCard",
     getCards: "http://localhost:5000/db/card/getCardCollection",
-    getSnapshot: "http://localhost:5000/db/snapshot/get"
+    getSnapshot: "http://localhost:5000/db/snapshot/get",
+    addEmail: "http://localhost:5000/db/user/insert",
+    shareCard: "http://localhost:5000/db/card/shareCardEmail"
     //"http://localhost:5000/db/snapshot/get/:platform/:handle"
 };
