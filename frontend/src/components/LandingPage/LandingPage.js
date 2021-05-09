@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LandingPage.css';
 import { signInWithGoogle } from "../../services/firebase";
+import { googleSignOut } from "../../services/firebase";
 
 
 const LandingPage = ({}) => {
