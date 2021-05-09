@@ -26,25 +26,25 @@ const LandingPage = ({}) => {
             <div className="logos">
                 <ul>
                     <li>
-                        <a href="https://google.com">
+                        <a href="https://instagram.com">
                             <img src="instagram.jpg" alt="instagram" width="90" height="90"/>
                         </a>
                     </li>
 
                     <li>
-                        <a href="https://google.com"> 
+                        <a href="https://twitter.com"> 
                             <img src="twitter.png" alt="twitter" width="90" height="90"/>
                         </a>
                     </li>
 
                     <li>
-                        <a href="https://google.com">
+                        <a href="https://tiktok.com">
                             <img src="tiktok.png" alt="tiktok" width="90" height="90"/>
                         </a>
                     </li>
 
                     <li>
-                        <a href="https://google.com">
+                        <a href="https://youtube.com">
                             <img src="app-icons-youtube.png" alt="youtube" width="90" height="90"/>
                         </a>
                     </li>
