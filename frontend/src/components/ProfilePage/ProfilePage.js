@@ -7,8 +7,13 @@ import UserStats from '../UserStats/UserStats'
 import Kards from '../Kards/Kards'
 import {userContext} from '../../userContext';
 import GoogleSSO from '../GoogleSSO/GoogleSSO'
+// import { googleSignOut } from "../../services/firebase";
 
-const ProfilePage = ({username}) => {
+// const ProfilePage = ({username}) => {
+const reload = () => {
+    ProfilePage();
+}
+const ProfilePage = () => {
 
     //use Effect to make api call to gather image and tweet info
     // trickle down the datas from this component to child components to display in each of them 
@@ -19,6 +24,11 @@ const ProfilePage = ({username}) => {
         userContext: userContext
     });
 
+    const googleSignOut = () => {
+        userContext.value = undefined
+        window.location.reload(true)// reload();
+      }
+
     if(userContext.value !== undefined){
         return (
             <div className="Profile">
@@ -27,12 +37,18 @@ const ProfilePage = ({username}) => {
                 </div>
                 <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <Kards name={userContext.value.displayName} img={userContext.value.photoURL}/>
+                {/* <Link to='../GoogleSSO/GoogleSSO.js'><img src="google.jpeg" alt="google" width="40" height="20"/>Google</Link> */}
+                <button class="button" type="button" onClick={googleSignOut}>Sign Out</button>
+
+
                 <UserStats />
                 {/*
                     <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                     <UserData data={usersInfoState.data} />
                 */}
+
             </div>
+            
         );
    }else {
         console.log(userContext.value)
