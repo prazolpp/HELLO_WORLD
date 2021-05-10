@@ -55,6 +55,7 @@ const ProfilePage = (props) => {
                 </div>
                 <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <Kards name={userContext.value.displayName} img={userContext.value.photoURL}/>
+
                 <Link to='/landingpage' onClick={googleSignOut} class="button">Sign Out</Link>
                 {/* <button class="button" type="button" onClick={googleSignOut}>Sign Out</button> */}
 
