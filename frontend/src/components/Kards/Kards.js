@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PersonalCards from '../PersonalCards/PersonalCards';
 import BusinessCard from '../BusinessCard/BusinessCard';
-import MyStats from '../MyStats/MyStats';
-import Share from '../AddCard/AddCard';
+import FriendsCards from '../FriendsCards/FriendsCards'
 import './Kards.css';
 import AddCard from '../AddCard/AddCard';
 import { sendRequest } from '../../sendRequest/sendRequest';
@@ -12,13 +11,8 @@ import { userContext } from '../../userContext';
  
 const Kards = ({name, img}) => {
     const [navState, setNavState] = useState(1);
-    const [cards, setCards] = useState({
-        "11111":{
-            youtube: "pewdiepie",
-            twitter: "pewdiepie",
-            instagram: "pewdiepie"
-        }
-    })
+    const [cards, setCards] = useState({})
+    const [fcards, setFcards] = useState({})
 
     useEffect(() => {
         let reqObj = {
@@ -40,7 +34,27 @@ const Kards = ({name, img}) => {
             }
             return
         })
-    },cards)
+
+        let freqObj = {
+            url: `${getCards}/${userContext.value.uid}/sharedCards`,
+            method: 'GET'
+        }
+        sendRequest(freqObj).then((data) => {
+            console.log("fcards")
+            console.log(data)
+            if(Object.keys(data).length){
+                let newcards = {...fcards, ...data}
+                // setCards(newcard)
+                // console.log(data)
+                // console.log(cards, "cards")
+                if(newcards != fcards){
+                    setFcards(newcards);
+                    return
+                }
+            }
+            return
+        })
+    },[])
 
     const cardAdder = (addedcards) => {
         let newcards = {...cards, ...addedcards}
@@ -59,17 +73,11 @@ const Kards = ({name, img}) => {
         }
         return "tab"
     })
-
-    let friendcard = {
-        youtube:"cr7",
-        twitter: "cristiano",
-        instagram: "cristiano"
-    }
-    const friendimg = "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5ec593cc431fb70007482137%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D1321%26cropX2%3D3300%26cropY1%3D114%26cropY2%3D2093"
+    
     // const stats = navState == 0 && <MyStats/>;
-    const personalcards = navState == 1 &&  <PersonalCards username={name} img={img} cards={cards}/>;
-    const businesscard = navState == 2 && <BusinessCard username={"Cristiano"} info={friendcard} img={friendimg} />;
-    const addcard = navState == 3 && <AddCard cardAdder={cardAdder}/>;
+    const personalcards = navState == 1 &&  <PersonalCards cards={cards}/>;
+    const friendscards = navState == 2 && <FriendsCards fcards={fcards} />;
+    const addcard = navState == 3 && <AddCard username={name} img={img} cardAdder={cardAdder}/>;
 
     return (
         <div className="UserProfile">
@@ -91,7 +99,7 @@ const Kards = ({name, img}) => {
             <div className="tab-container">
                 {personalcards}
                 {/* {mystats} */}
-                {businesscard}
+                {friendscards}
                 {addcard}
             </div>
         </div>

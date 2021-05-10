@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import {sendEmail} from '../../services/cardops'
+import {userContext} from '../../userContext'
 
-const ShareButton = () => {
+const ShareButton = ({cardID}) => {
 
     const [shareState, setshareState] = useState(false);
 
@@ -9,7 +10,7 @@ const ShareButton = () => {
 
         if(event.key == "Enter"){
             console.log("heree")
-            sendEmail(event.target.value)
+            sendEmail(userContext.value.uid, cardID, event.target.value)
             setshareState(false)
         }
     }

@@ -1,8 +1,9 @@
 import dotenv from 'dotenv'
 import firebase from "firebase/app";
 import "firebase/auth";
+import { sendRequest } from '../sendRequest/sendRequest';
 import {userContext} from '../userContext';
-
+import {addEmail} from '../apis/apis'
 
 dotenv.config()
 firebase.initializeApp({
@@ -22,6 +23,13 @@ export const signInWithGoogle = () => {
   auth.signInWithPopup(googleProvider).then((res) => {
     console.log(res.user)
     userContext.value=res.user
+    let urlObj = {
+      //http://localhost:5000/db/user/insert/:id/:email
+      url: `${addEmail}/${userContext.value.uid}/${userContext.value.email}`,
+      method: 'POST'
+    }
+
+  sendRequest(urlObj).then((data)=>console.log(data)).catch((err) => console.log(err))
     return true
   }).catch((error) => {
     console.log(error.message)
