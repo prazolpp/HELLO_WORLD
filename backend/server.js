@@ -153,13 +153,73 @@ app.get('/db/snapshot/recent/:platform/:handle', async (req, res) => {
   res.send(await getMostRecent(platform, handle));
 })
 
-//getPlatformSnapshots
+//getPlatformSnapshots OLD
+// app.get('/db/snapshot/get/:platform/:handle', async (req, res) => {
+//   const platform = req.params.platform;
+//   const handle = req.params.handle;
+//   res.send(await getPlatformSnapshots(platform, handle));
+// })
+
+//getPlatformSnapshots DUMMY
 app.get('/db/snapshot/get/:platform/:handle', async (req, res) => {
   const platform = req.params.platform;
   const handle = req.params.handle;
-  res.send(await getPlatformSnapshots(platform, handle));
+  res.send(youtube_data);
 })
 
+//DUMMY DATA:
+var youtube_data = {
+  '1620520075': { subscribers: 6013, videos: 151, views: 12040 },
+  '1620606475': { subscribers: 6030, videos: 152, views: 12133 },
+  '1620692875': { subscribers: 6046, videos: 153, views: 12164 },
+  '1620779275': { subscribers: 6057, videos: 154, views: 12220 },
+  '1620865675': { subscribers: 6065, videos: 155, views: 12302 },
+  '1620952075': { subscribers: 6070, videos: 156, views: 12340 },
+  '1621038475': { subscribers: 6080, videos: 157, views: 12370 },
+  '1621124875': { subscribers: 6086, videos: 158, views: 12412 },
+  '1621211275': { subscribers: 6088, videos: 159, views: 12517 },
+  '1621297675': { subscribers: 6105, videos: 160, views: 12563 },
+  '1621384075': { subscribers: 6111, videos: 161, views: 12643 },
+  '1621470475': { subscribers: 6122, videos: 162, views: 12743 },
+  '1621556875': { subscribers: 6128, videos: 163, views: 12836 },
+  '1621643275': { subscribers: 6149, videos: 164, views: 12901 },
+  '1621729675': { subscribers: 6155, videos: 165, views: 12993 },
+  '1621816075': { subscribers: 6156, videos: 166, views: 13026 },
+  '1621902475': { subscribers: 6166, videos: 167, views: 13075 },
+  '1621988875': { subscribers: 6177, videos: 168, views: 13110 },
+  '1622075275': { subscribers: 6198, videos: 169, views: 13168 },
+  '1622161675': { subscribers: 6211, videos: 170, views: 13216 },
+  '1622248075': { subscribers: 6222, videos: 171, views: 13274 },
+  '1622334475': { subscribers: 6234, videos: 172, views: 13359 },
+  '1622420875': { subscribers: 6254, videos: 173, views: 13397 },
+  '1622507275': { subscribers: 6255, videos: 174, views: 13491 },
+  '1622593675': { subscribers: 6262, videos: 175, views: 13527 },
+  '1622680075': { subscribers: 6264, videos: 176, views: 13563 },
+  '1622766475': { subscribers: 6271, videos: 177, views: 13603 },
+  '1622852875': { subscribers: 6284, videos: 178, views: 13654 },
+  '1622939275': { subscribers: 6296, videos: 179, views: 13694 },
+  '1623025675': { subscribers: 6310, videos: 180, views: 13728 },
+  '1623112075': { subscribers: 6321, videos: 181, views: 13761 },
+  '1623198475': { subscribers: 6336, videos: 182, views: 13797 },
+  '1623284875': { subscribers: 6357, videos: 183, views: 13828 },
+  '1623371275': { subscribers: 6375, videos: 184, views: 13866 },
+  '1623457675': { subscribers: 6379, videos: 185, views: 13898 },
+  '1623544075': { subscribers: 6392, videos: 186, views: 13941 },
+  '1623630475': { subscribers: 6408, videos: 187, views: 14000 },
+  '1623716875': { subscribers: 6429, videos: 188, views: 14044 },
+  '1623803275': { subscribers: 6429, videos: 189, views: 14116 },
+  '1623889675': { subscribers: 6446, videos: 190, views: 14163 },
+  '1623976075': { subscribers: 6456, videos: 191, views: 14202 },
+  '1624062475': { subscribers: 6459, videos: 192, views: 14271 },
+  '1624148875': { subscribers: 6463, videos: 193, views: 14369 },
+  '1624235275': { subscribers: 6484, videos: 194, views: 14415 },
+  '1624321675': { subscribers: 6499, videos: 195, views: 14508 },
+  '1624408075': { subscribers: 6504, videos: 196, views: 14558 },
+  '1624494475': { subscribers: 6506, videos: 197, views: 14605 },
+  '1624580875': { subscribers: 6514, videos: 198, views: 14638 },
+  '1624667275': { subscribers: 6525, videos: 199, views: 14686 },
+  '1624753675': { subscribers: 6545, videos: 200, views: 14739 }
+};
 
 // database operations
 function hashString(string) {               
