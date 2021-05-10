@@ -27,7 +27,7 @@ app.get('/bio/youtube/:youtube_name', (req, res) => {
   const username = req.params.youtube_name
   const youtube_key = process.env.YOUTUBE_KEY
   console.log(youtube_key, username)
-  reqObj = {
+  let reqObj = {
     url: `${youtubeIdApi}${username}&key=${youtube_key}`
   }
   sendRequest(reqObj).then((data) => {
@@ -35,7 +35,7 @@ app.get('/bio/youtube/:youtube_name', (req, res) => {
   }).catch((err) => res.send(err))
   .then((data) => {
     const id = data.items[0].id
-    reqObj = {
+    let reqObj = {
       url: `${youtubeApi}${id}&key=${youtube_key}`
     }
     sendRequest(reqObj).then((data) => {
@@ -46,9 +46,9 @@ app.get('/bio/youtube/:youtube_name', (req, res) => {
 })
 
 app.get('/bio/instagram/:instagram_name', (req, res) => {
-
+  console.log("got here")
   const username = req.params.instagram_name
-  reqObj = {
+  let reqObj = {
     url: `${instagramApi}${username}/?__a=1`
   }
   console.log(username)

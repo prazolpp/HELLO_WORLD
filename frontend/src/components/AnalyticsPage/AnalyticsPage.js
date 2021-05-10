@@ -51,98 +51,112 @@ const AnalyticsPage = (props) => {
     //     tiktok: []
     // }
     const setYoutubeName = (e) => {
-        if(e.key == "Enter"){
+        if(platform == "Youtube" && e.key == "Enter"){
             e.preventDefault()
             setUsersInfoState({
                 ...usersInfoState,
-                youtubeName: e.target.value
+                youtubeName: e.target.value,
             })
         }
     }
+
     const setTwitterName = (e) => {
-        if(e.key == "Enter"){
+        if(platform == "Twitter" && e.key == "Enter"){
             e.preventDefault()
             setUsersInfoState({
                 ...usersInfoState,
-                twitterName: e.target.value
+                twitterName: e.target.value,
             })
         }
     }
     const setInstagramName = (e) => {
         e.preventDefault()
-        if(e.key == "Enter"){
+        if(platform == "Instagram" && e.key == "Enter"){
             setUsersInfoState({
                 ...usersInfoState,
-                instagramName: e.target.value
+                instagramName: e.target.value,
             })
         }
     }
 
     useEffect(() => {
-        let youtubeRequestObj = {
-            url: `${getYoutubeData}/${usersInfoState.youtubeName}`
+
+        if(platform == "Youtube" && usersInfoState.youtubeName){
+            let youtubeRequestObj = {
+                url: `${getYoutubeData}/${usersInfoState.youtubeName}`
+            }
+    
+            sendRequest(youtubeRequestObj).then((usersInfo) => {
+                setUsersInfoState({
+                    ...usersInfoState,
+                    data: { 
+                        ...usersInfoState.data, 
+                        youtube:{
+                            followers: usersInfo.items[0].statistics.subscriberCount,
+                            posts: usersInfo.items[0].statistics.videoCount,
+                            views: usersInfo.items[0].statistics.viewCount
+                        }, 
+                        // twitter: {},
+                        // instagram: {}
+                    }
+                })
+            }).catch((error) => {
+                if (usersInfoState.youtubeName !== ""){
+                    alert("Account not found!")
+                }            
+            })
         }
 
-        sendRequest(youtubeRequestObj).then((usersInfo) => {
-            setUsersInfoState({
-                ...usersInfoState,
-                data: { 
-                    ...usersInfoState.data, 
-                    youtube:{
-                        followers: usersInfo.items[0].statistics.subscriberCount,
-                        posts: usersInfo.items[0].statistics.videoCount,
-                        views: usersInfo.items[0].statistics.viewCount
+        if(platform == "Twitter" && usersInfoState.twitterName){
+            let twitterRequestObj = {
+                url: `${getTwitterData}/${usersInfoState.twitterName}`,
+            }
+    
+            sendRequest(twitterRequestObj).then((usersInfo) => {
+                setUsersInfoState({
+                    ...usersInfoState,
+                    data: { 
+                        ...usersInfoState.data, 
+                        twitter:{
+                            followers: usersInfo.followers_count,
+                            posts: usersInfo.statuses_count,
+                            following: usersInfo.friends_count
+                        },
+                        // youtube: {},
+                        // instagram: {}
                     }
-                }
+                })
+            }).catch((error) => {
+                if (usersInfoState.twitterName !== ""){
+                    alert("Account not found!")
+                }            
             })
-        }).catch((error) => {
-            if (usersInfoState.youtubeName !== ""){
-                alert("Account not found!")
-            }            
-        })
-        let twitterRequestObj = {
-            url: `${getTwitterData}/${usersInfoState.twitterName}`,
         }
 
-        sendRequest(twitterRequestObj).then((usersInfo) => {
-            setUsersInfoState({
-                ...usersInfoState,
-                data: { 
-                    ...usersInfoState.data, 
-                    twitter:{
-                        followers: usersInfo.followers_count,
-                        posts: usersInfo.statuses_count,
-                        following: usersInfo.friends_count
+        if(platform == "Instagram" && usersInfoState.setInstagramName){
+            let instaRequestObj = {
+                url: `${getInstagramData}/${usersInfoState.instagramName}`
+            }
+            sendRequest(instaRequestObj).then((usersInfo) => {
+                console.log(usersInfo)
+                setUsersInfoState({
+                    ...usersInfoState,
+                    data: { 
+                        ...usersInfoState.data, 
+                        instagram:{
+                            followers: usersInfo.graphql.user.edge_followed_by.count,
+                            following: usersInfo.graphql.user.edge_follow.count
+                        },
+                        // youtube: {},
+                        // twitter: {}
                     }
-                }
+                })
+            }).catch((error) => {
+                if (usersInfoState.instagramName !== ""){
+                    alert("Account not found!")
+                }            
             })
-        }).catch((error) => {
-            if (usersInfoState.twitterName !== ""){
-                alert("Account not found!")
-            }            
-        })
-        let instaRequestObj = {
-            url: `${getInstagramData}/${usersInfoState.instagramName}`
         }
-        sendRequest(instaRequestObj).then((usersInfo) => {
-            console.log(usersInfo)
-            setUsersInfoState({
-                ...usersInfoState,
-                data: { 
-                    ...usersInfoState.data, 
-                    instagram:{
-                        followers: usersInfo.graphql.user.edge_followed_by.count || 0,
-                        posts: 0,
-                        following: usersInfo.graphql.user.edge_follow.count|| 0
-                    }
-                }
-            })
-        }).catch((error) => {
-            if (usersInfoState.instagramName !== ""){
-                alert("Account not found!")
-            }            
-        })
-
     }, [usersInfoState.twitterName, usersInfoState.youtubeName, usersInfoState.instagramName]);
 
     console.log(usersInfoState)
@@ -157,9 +171,6 @@ const AnalyticsPage = (props) => {
                 <div className="line">
                     <h2>Sign in to manage your kards and view your social analytics!</h2>
                 </div>
-    
-    
-    
     
                 <div className="sign">
                     <p>---------------------Sign in with ---------------------</p>
