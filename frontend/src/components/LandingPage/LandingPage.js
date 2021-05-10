@@ -25,14 +25,22 @@ if(el){
     function(){
         document.querySelector('.bg-modal').style.display = 'flex';
     });
+}else{
+    console.log("You have a problem: button")
 }
 
-/*
-document.querySelector('.close').addEventListener('click', 
-function(){
+
+var le = document.querySelector('.close');
+
+if(le){
+    le.addEventListener('click', 
+    function(){
     document.querySelector('.bg-modal').style.display = 'none'
-});
-*/
+    });
+}else {
+    console.log("You have a problem: .close")
+}
+
 
 const LandingPage = ({}) => {
 
@@ -120,7 +128,7 @@ const LandingPage = ({}) => {
                 <div className="logos">
                     <ul>
                         <li >
-                            <a href="#" id="button" >
+                            <a href="#" id="button">
                                 <img src="insta_last.png" alt="instagram" width="90" height="90"/>
                             </a>
                         </li>

@@ -3,7 +3,7 @@ import { sendRequest } from '../../sendRequest/sendRequest';
 import { getTwitterData } from '../../apis/apis';
 import './ProfilePage.css';
 import UserBio from '../UserBio/UserBio'
-import UserStats from '../UserStats/UserStats'
+//import UserStats from '../UserStats/UserStats'
 import Kards from '../Kards/Kards'
 import { Link } from 'react-router-dom';
 import {userContext} from '../../userContext';
@@ -60,11 +60,7 @@ const ProfilePage = (props) => {
                 {/* <button class="button" type="button" onClick={googleSignOut}>Sign Out</button> */}
 
 
-                <UserStats />
-                {/*
-                    <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
-                    <UserData data={usersInfoState.data} />
-                */}
+                
 
             </div>
             
