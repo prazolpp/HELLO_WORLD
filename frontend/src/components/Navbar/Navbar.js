@@ -5,12 +5,16 @@ import Home from '../../assets/images/home.svg';
 import Search from '../../assets/images/search.svg';
 import Analytics from '../../assets/images/analytics.svg';
 import Profile from '../../assets/images/profile.svg';
-
 import './Navbar.css';
 
-const Navbar = ({}) => {
-
-    const [tabNum, setTabNum] = useState(0)
+const Navbar = (props) => {
+    // const [tabNum, setTabNum] = useState(0)
+    const {
+        tabNum: [tabNum, setTabNum]
+      } = {
+        tabNum: useState(0),
+        ...(props.state || {})
+      };
 
     let homeClass = tabNum !== 0 ? "NavImg": "NavImg Selected"
     {/*let searchClass = tabNum !== 1 ? "NavImg": "NavImg Selected" */}
