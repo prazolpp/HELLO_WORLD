@@ -10,7 +10,6 @@ let weeks = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "S
 let months = [ "Jan", "Feb", "March", "April", "May", "June",
 "July", "Aug", "Sep", "Oct", "Nov", "Dec" ];
 let years = ["2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2019", "2020", "2021"]
-
 let followData = {
     labels: months,
     datasets: [
@@ -21,7 +20,7 @@ let followData = {
         backgroundColor: 'rgba(29, 161, 242,1)',
         borderColor: 'rgba(0, 51, 102,1)',
         borderWidth: 2,
-        data: [ 1100, 1300, 1350, 2366]
+        data: []
         // data: [650, 800, 1200, 1100, 1300, 650, 800, 1200, 1100, 1300, 1350, 2366]
       },
       {
@@ -31,7 +30,8 @@ let followData = {
         backgroundColor: 'rgba(255,0,0,1)',
         borderColor: 'rgba(160,82,45)',
         borderWidth: 2,
-        data: [90, 300, 500, 430, 600, 1200, 1100, 1300, 650, 800, 1200, 1100]
+        data: []
+        //[90, 300, 500, 430, 600, 1200, 1100, 1300, 650, 800, 1200, 1100]
       },
       {
         label: 'Instagram Followers',
@@ -40,7 +40,8 @@ let followData = {
         backgroundColor: 'rgba(193,53,132,1)',
         borderColor: 'rgba(131,58,180)',
         borderWidth: 2,
-        data: [1000, 1100, 1400, 1600, 600,200, 1100, 1300, 650, 800,1300, 1350 ]
+        data: []
+        //data: [1000, 1100, 1400, 1600, 600,200, 1100, 1300, 650, 800,1300, 1350 ]
       }
     ]
   }
@@ -55,69 +56,73 @@ const options =  {
         display:true,
         position:'right'
     },
-    maintainAspectRatio: false    
+    maintainAspectRatio: false  
 }                   
 
-const LineCharts = ({twitter="", instagram="", youtube=""}) => {
+const LineCharts = ({dataObj}) => {
 
-
+  /*
+    {
+      twitter: {},
+      youtube: {},
+      instagram: {}
+    }
+  
+  */
     const [platformData, setPlatformData] = useState({
-      "twitter":[],
-      "youtube":[],
-      "instagram": []
+      labels: [],
+      data: []
+      // "twitter":{},
+      // "youtube":{},
+      // "instagram": {}
     })
-    let reqObj = {
-      // url: `${getPlatformsnap}/`,
-      url: `http://localhost:5000/db/snapshot/get/youtube/pewdiepie`,
-      method: 'GET'
-  }
-  sendRequest(reqObj).then((data) => {
-    console.log("LineChart data")
-    console.log(data)
-    // if(Object.keys(data).length){
-    //     // let newcards = {...cards, ...data}
-    //     // setCards(newcard)
-    //     // console.log(data)
-    //     // console.log(cards, "cards")
-    //     // if(newcards != cards){
-    //     //     setCards(newcards);
-    //     //     return
-    //     // }
-    // }
-    // return
-  })
 
     useEffect(() => {
-      //"http://localhost:5000/db/snapshot/get/:platform/:handle"
+      let newPlatformData = {
+        labels: [],
+        data: []
+        // "twitter":{},
+        // "youtube":{},
+        // "instagram": {}
+      }
+      
 
+      let graphReqObj = {
+        // url: `${getPlatformsnap}/`,
+        url: `http://localhost:5000/db/snapshot/get/twitter/elonmusk`,
+        method: 'GET'
+      }
+    
+      sendRequest(graphReqObj).then((data) => {
+          console.log(data, "data in charts")
+          // let labels = []
+          // //let months = Object.keys(data).map((month) => new Date(time*1000).getMonth())
 
-      let youtubeObj = {
-        url: `${getSnapshot}/youtube/${youtube}`
-      }
-      let twitterObj = {
-        url: `${getSnapshot}/youtube/${twitter}`
-      }
-      let instagramObj = {
-        url: `${getSnapshot}/youtube/${youtube}`
-      }
-      if(youtube){
-        sendRequest(youtubeObj).then((data) => {
-          console.log(data)
-        })
-      }
-      if(twitter){
-        sendRequest(twitterObj).then((data) => {
+          // let twitterArr = Object.keys(data).sort().map((time) => {
+          //     let realtime = new Date(time*1000)
+          //     labels.push(realtime.getMonth())
+          //     return data[time].followerss
+          // })
+          let newLabels = []
+          let newData = []
 
-        })
-      }
-      if(instagram){
-        sendRequest(instagramObj).then((data) => {
+          let sortedKeys = Object.keys(data)
+          sortedKeys.sort()
+          console.log(sortedKeys)
+          sortedKeys.forEach((date) => {
+              let currDate = new Date(date*1000)
+              newLabels.push(currDate.toLocaleDateString())
+              newData.push(data[date].subscribers)
+          })
+          console.log(newData, "newdata")
+          let newPlatformData = {labels: newLabels, data: newData}
+          setPlatformData(newPlatformData)
+      })
+    }, [])
 
-        })
-      }
+    followData.labels = platformData.labels
+    followData.datasets[0].data = platformData.data
 
-    }, platformData)
-  
     return (
         <div className="LineCharts">
             <Line

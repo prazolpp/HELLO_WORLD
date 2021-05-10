@@ -5,7 +5,7 @@ import LineCharts from '../LineCharts/LineCharts';
 import Dropdown from '../Dropdown/Dropdown'
 
 
-const ChartComponent = (props) => {
+const ChartComponent = ({dataObj}) => {
     
     const [dropdownOpen, setDropdownOpen] = useState("All");
     const  handleChange = (event) => {
@@ -14,7 +14,7 @@ const ChartComponent = (props) => {
     
     return (
         <div className="ChartComponent">
-            <LineCharts timePeriod={dropdownOpen} twitterName="" instaName="" youtubeName=""/>
+            <LineCharts dataObj={dataObj} timePeriod={dropdownOpen} twitterName="" instaName="" youtubeName=""/>
         </div>
     )
 }

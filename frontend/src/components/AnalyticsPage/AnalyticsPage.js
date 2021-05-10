@@ -29,7 +29,7 @@ const AnalyticsPage = ({}) => {
     })
     const [platform, setPlatform] = useState("Twitter")
     const  handleChange = (event) => setPlatform(event.target.value);
-
+    const [dataObj, setDataObj] = useState({})
     // const medias = {
     //     youtube: ["followers", "posts", "views"],
     //     instagram: ["followers", "posts", "following"],
@@ -127,11 +127,36 @@ const AnalyticsPage = ({}) => {
                 alert("Account not found!")
             }            
         })
-
+        
+            //   //"http://localhost:5000/db/snapshot/get/:platform/:handle"
+            //   let youtubeObj = {
+            //     url: `${getSnapshot}/youtube/${youtube}`
+            //   }
+            //   let twitterObj = {
+            //     url: `${getSnapshot}/youtube/${twitter}`
+            //   }
+            //   let instagramObj = {
+            //     url: `${getSnapshot}/youtube/${youtube}`
+            //   }
+            //   if(youtube){
+            //     sendRequest(youtubeObj).then((data) => {
+            //       console.log(data)
+            //     })
+            //   }
+            //   if(twitter){
+            //     sendRequest(twitterObj).then((data) => {
+        
+            //     })
+            //   }
+            //   if(instagram){
+            //     sendRequest(instagramObj).then((data) => {
+        
+            //     })
+            // }
     }, [usersInfoState.twitterName, usersInfoState.youtubeName, usersInfoState.instagramName]);
 
     console.log(usersInfoState)
-
+    
      if(userContext.value == undefined){
          console.log(userContext.value)
          return(<GoogleSSO />);
@@ -144,7 +169,7 @@ const AnalyticsPage = ({}) => {
                     Choose a platform from the top right corner and enter your social media id below! 
                 </div>
                 <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} setInstagramName={setInstagramName} usersInfoState={usersInfoState}/>
-                <ChartComponent />
+                <ChartComponent dataObj={dataObj}/>
                 {/*
                     <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                     <UserData data={usersInfoState.data} />
