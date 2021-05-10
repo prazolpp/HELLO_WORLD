@@ -31,8 +31,7 @@ const StatCards = ({platform, usersInfoState, setTwitterName, setYoutubeName, se
             })
         }
     }
-
-    const insta_stats = ["followers", "posts", "following"]
+    const insta_stats = ["followers", "following"]
     if(platform == "Instagram"){
         search_instagram = <SearchBar keyword={usersInfoState.instagramName} handleChange={setInstagramName} />
         if(usersInfoState.instagramName){

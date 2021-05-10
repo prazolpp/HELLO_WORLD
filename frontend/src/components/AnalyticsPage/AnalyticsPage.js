@@ -6,10 +6,19 @@ import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
 import StatCards from '../StatCards/StatCards';
+import { signInWithGoogle } from "../../services/firebase";
 import {userContext} from '../../userContext';
+import {Link} from 'react-router-dom'
 import GoogleSSO from '../GoogleSSO/GoogleSSO'
 
-const AnalyticsPage = ({}) => {
+const AnalyticsPage = (props) => {
+
+    const onClick = (event) => {
+        setTabNum(0);
+        signInWithGoogle();
+        // window.history.back()
+    }
+
 
     //use Effect to make api call to gather image and tweet info
     // trickle down the data from this component to child components to display in each of them 
@@ -27,139 +36,151 @@ const AnalyticsPage = ({}) => {
             tiktok:{}
         }
     })
+    const {
+        tabNum: [tabNum, setTabNum]
+      } = {
+        tabNum: useState(0),
+        ...(props.state || {})
+      };
     const [platform, setPlatform] = useState("Twitter")
     const  handleChange = (event) => setPlatform(event.target.value);
-    const [dataObj, setDataObj] = useState({})
+
     // const medias = {
     //     youtube: ["followers", "posts", "views"],
     //     instagram: ["followers", "posts", "following"],
     //     tiktok: []
     // }
     const setYoutubeName = (e) => {
-        if(e.key == "Enter"){
+        if(platform == "Youtube" && e.key == "Enter"){
             e.preventDefault()
             setUsersInfoState({
                 ...usersInfoState,
-                youtubeName: e.target.value
+                youtubeName: e.target.value,
             })
         }
     }
+
     const setTwitterName = (e) => {
-        if(e.key == "Enter"){
+        if(platform == "Twitter" && e.key == "Enter"){
             e.preventDefault()
             setUsersInfoState({
                 ...usersInfoState,
-                twitterName: e.target.value
+                twitterName: e.target.value,
             })
         }
     }
     const setInstagramName = (e) => {
         e.preventDefault()
-        if(e.key == "Enter"){
+        if(platform == "Instagram" && e.key == "Enter"){
             setUsersInfoState({
                 ...usersInfoState,
-                instagramName: e.target.value
+                instagramName: e.target.value,
             })
         }
     }
 
     useEffect(() => {
-        let youtubeRequestObj = {
-            url: `${getYoutubeData}/${usersInfoState.youtubeName}`
+
+        if(platform == "Youtube" && usersInfoState.youtubeName){
+            let youtubeRequestObj = {
+                url: `${getYoutubeData}/${usersInfoState.youtubeName}`
+            }
+    
+            sendRequest(youtubeRequestObj).then((usersInfo) => {
+                setUsersInfoState({
+                    ...usersInfoState,
+                    data: { 
+                        ...usersInfoState.data, 
+                        youtube:{
+                            followers: usersInfo.items[0].statistics.subscriberCount,
+                            posts: usersInfo.items[0].statistics.videoCount,
+                            views: usersInfo.items[0].statistics.viewCount
+                        }, 
+                        // twitter: {},
+                        // instagram: {}
+                    }
+                })
+            }).catch((error) => {
+                if (usersInfoState.youtubeName !== ""){
+                    alert("Account not found!")
+                }            
+            })
         }
 
-        sendRequest(youtubeRequestObj).then((usersInfo) => {
-            setUsersInfoState({
-                ...usersInfoState,
-                data: { 
-                    ...usersInfoState.data, 
-                    youtube:{
-                        followers: usersInfo.items[0].statistics.subscriberCount,
-                        posts: usersInfo.items[0].statistics.videoCount,
-                        views: usersInfo.items[0].statistics.viewCount
+        if(platform == "Twitter" && usersInfoState.twitterName){
+            let twitterRequestObj = {
+                url: `${getTwitterData}/${usersInfoState.twitterName}`,
+            }
+    
+            sendRequest(twitterRequestObj).then((usersInfo) => {
+                setUsersInfoState({
+                    ...usersInfoState,
+                    data: { 
+                        ...usersInfoState.data, 
+                        twitter:{
+                            followers: usersInfo.followers_count,
+                            posts: usersInfo.statuses_count,
+                            following: usersInfo.friends_count
+                        },
+                        // youtube: {},
+                        // instagram: {}
                     }
-                }
+                })
+            }).catch((error) => {
+                if (usersInfoState.twitterName !== ""){
+                    alert("Account not found!")
+                }            
             })
-        }).catch((error) => {
-            if (usersInfoState.youtubeName !== ""){
-                alert("Account not found!")
-            }            
-        })
-        let twitterRequestObj = {
-            url: `${getTwitterData}/${usersInfoState.twitterName}`,
         }
 
-        sendRequest(twitterRequestObj).then((usersInfo) => {
-            setUsersInfoState({
-                ...usersInfoState,
-                data: { 
-                    ...usersInfoState.data, 
-                    twitter:{
-                        followers: usersInfo.followers_count,
-                        posts: usersInfo.statuses_count,
-                        following: usersInfo.friends_count
+        if(platform == "Instagram" && usersInfoState.setInstagramName){
+            let instaRequestObj = {
+                url: `${getInstagramData}/${usersInfoState.instagramName}`
+            }
+            sendRequest(instaRequestObj).then((usersInfo) => {
+                console.log(usersInfo)
+                setUsersInfoState({
+                    ...usersInfoState,
+                    data: { 
+                        ...usersInfoState.data, 
+                        instagram:{
+                            followers: usersInfo.graphql.user.edge_followed_by.count,
+                            following: usersInfo.graphql.user.edge_follow.count
+                        },
+                        // youtube: {},
+                        // twitter: {}
                     }
-                }
+                })
+            }).catch((error) => {
+                if (usersInfoState.instagramName !== ""){
+                    alert("Account not found!")
+                }            
             })
-        }).catch((error) => {
-            if (usersInfoState.twitterName !== ""){
-                alert("Account not found!")
-            }            
-        })
-        let instaRequestObj = {
-            url: `${getInstagramData}/${usersInfoState.instagramName}`
         }
-        sendRequest(instaRequestObj).then((usersInfo) => {
-            console.log(usersInfo)
-            setUsersInfoState({
-                ...usersInfoState,
-                data: { 
-                    ...usersInfoState.data, 
-                    instagram:{
-                        followers: usersInfo.graphql.user.edge_followed_by.count || 0,
-                        posts: 0,
-                        following: usersInfo.graphql.user.edge_follow.count|| 0
-                    }
-                }
-            })
-        }).catch((error) => {
-            if (usersInfoState.instagramName !== ""){
-                alert("Account not found!")
-            }            
-        })
-        
-            //   //"http://localhost:5000/db/snapshot/get/:platform/:handle"
-            //   let youtubeObj = {
-            //     url: `${getSnapshot}/youtube/${youtube}`
-            //   }
-            //   let twitterObj = {
-            //     url: `${getSnapshot}/youtube/${twitter}`
-            //   }
-            //   let instagramObj = {
-            //     url: `${getSnapshot}/youtube/${youtube}`
-            //   }
-            //   if(youtube){
-            //     sendRequest(youtubeObj).then((data) => {
-            //       console.log(data)
-            //     })
-            //   }
-            //   if(twitter){
-            //     sendRequest(twitterObj).then((data) => {
-        
-            //     })
-            //   }
-            //   if(instagram){
-            //     sendRequest(instagramObj).then((data) => {
-        
-            //     })
-            // }
     }, [usersInfoState.twitterName, usersInfoState.youtubeName, usersInfoState.instagramName]);
 
     console.log(usersInfoState)
-    
+
      if(userContext.value == undefined){
-         console.log(userContext.value)
-         return(<GoogleSSO />);
+        //  console.log(userContext.value)
+        //  return(<GoogleSSO state={{ tabNum: [tabNum, setTabNum] }}/>);
+        return (
+            <div className="GoogleSSO">
+    
+    
+                <div className="line">
+                    <h2>Sign in to manage your kards and view your social analytics!</h2>
+                </div>
+    
+                <div className="sign">
+                    <p>---------------------Sign in with ---------------------</p>
+                    {/* <button type="button"><img src="google.jpeg" alt="google" width="40" height="20" onClick={onClick}/></button> */}
+                    <Link to='/landingpage'><img src="google.jpeg" alt="google" width="40" height="20" onClick={onClick}/></Link>
+                    
+                </div>
+            </div>
+        );
+    
     }else {
         return (
             <div className="Analytics">
@@ -169,7 +190,7 @@ const AnalyticsPage = ({}) => {
                     Choose a platform from the top right corner and enter your social media id below! 
                 </div>
                 <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} setInstagramName={setInstagramName} usersInfoState={usersInfoState}/>
-                <ChartComponent dataObj={dataObj}/>
+                <ChartComponent />
                 {/*
                     <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                     <UserData data={usersInfoState.data} />

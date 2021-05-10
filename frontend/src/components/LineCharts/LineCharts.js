@@ -21,28 +21,7 @@ let followData = {
         borderColor: 'rgba(0, 51, 102,1)',
         borderWidth: 2,
         data: []
-        // data: [650, 800, 1200, 1100, 1300, 650, 800, 1200, 1100, 1300, 1350, 2366]
       },
-      {
-        label: 'Youtube Subscribers',
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: 'rgba(255,0,0,1)',
-        borderColor: 'rgba(160,82,45)',
-        borderWidth: 2,
-        data: []
-        //[90, 300, 500, 430, 600, 1200, 1100, 1300, 650, 800, 1200, 1100]
-      },
-      {
-        label: 'Instagram Followers',
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: 'rgba(193,53,132,1)',
-        borderColor: 'rgba(131,58,180)',
-        borderWidth: 2,
-        data: []
-        //data: [1000, 1100, 1400, 1600, 600,200, 1100, 1300, 650, 800,1300, 1350 ]
-      }
     ]
   }
 
@@ -112,7 +91,12 @@ const LineCharts = ({dataObj}) => {
           sortedKeys.forEach((date) => {
               let currDate = new Date(date*1000)
               newLabels.push(currDate.toLocaleDateString())
-              newData.push(data[date].subscribers)
+              if(data[date].followers){
+                newData.push(data[date].followers)
+              }
+              else{
+                newData.push(data[date].subscribers)
+              }
           })
           console.log(newData, "newdata")
           let newPlatformData = {labels: newLabels, data: newData}

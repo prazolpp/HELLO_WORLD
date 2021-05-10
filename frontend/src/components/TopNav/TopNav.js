@@ -4,7 +4,7 @@ import SearchBar from '../SearchBar/SearchBar.js'
 import Dropdown from '../Dropdown/Dropdown';
 
 const TopNav = ({username, setUsername, platform, handleChange}) => {
-    const options = ["All","Instagram", "Twitter", "Youtube", "Tiktok"]
+    const options = ["Instagram", "Twitter", "Youtube"]
 
     return (
         <div className="TopNav">
