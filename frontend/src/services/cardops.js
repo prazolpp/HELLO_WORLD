@@ -11,9 +11,13 @@ export const sendEmail = (id, cardID, email) => {
         method: 'POST'
     }
     sendRequest(urlObj).then((data) => {
-        alert("shared the card!!")
-        console.log(data, `shared card to ${email}`)
-    }).then((error) => console.log(error, `error sharing card to ${email}`))
+        if(data == "success"){
+            alert("shared the card!!")
+        }
+        else{
+            alert("Error sharing card")
+        }
+    }).catch((error) => console.log)
     
     return 
 }
