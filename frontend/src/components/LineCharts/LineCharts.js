@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import { getPlatformSnapshots, getSnapshot, getYoutubeData } from '../../apis/apis'
 import { Line } from 'react-chartjs-2';
+import { getPlatformsnap } from '../../apis/apis'
+import { userContext } from '../../userContext';
 import './LineCharts.css';
 
 let weeks = ["Sunday", "Monday", "Tuesday", "Wednesday","Thursday", "Friday", "Saturday"]
@@ -19,7 +21,8 @@ let followData = {
         backgroundColor: 'rgba(29, 161, 242,1)',
         borderColor: 'rgba(0, 51, 102,1)',
         borderWidth: 2,
-        data: [650, 800, 1200, 1100, 1300, 650, 800, 1200, 1100, 1300, 1350, 2366]
+        data: [ 1100, 1300, 1350, 2366]
+        // data: [650, 800, 1200, 1100, 1300, 650, 800, 1200, 1100, 1300, 1350, 2366]
       },
       {
         label: 'Youtube Subscribers',
@@ -57,15 +60,36 @@ const options =  {
 
 const LineCharts = ({twitter="", instagram="", youtube=""}) => {
 
+
     const [platformData, setPlatformData] = useState({
       "twitter":[],
       "youtube":[],
       "instagram": []
     })
-
+    let reqObj = {
+      // url: `${getPlatformsnap}/`,
+      url: `http://localhost:5000/db/snapshot/get/youtube/pewdiepie`,
+      method: 'GET'
+  }
+  sendRequest(reqObj).then((data) => {
+    console.log("LineChart data")
+    console.log(data)
+    // if(Object.keys(data).length){
+    //     // let newcards = {...cards, ...data}
+    //     // setCards(newcard)
+    //     // console.log(data)
+    //     // console.log(cards, "cards")
+    //     // if(newcards != cards){
+    //     //     setCards(newcards);
+    //     //     return
+    //     // }
+    // }
+    // return
+  })
 
     useEffect(() => {
       //"http://localhost:5000/db/snapshot/get/:platform/:handle"
+
 
       let youtubeObj = {
         url: `${getSnapshot}/youtube/${youtube}`
@@ -78,7 +102,7 @@ const LineCharts = ({twitter="", instagram="", youtube=""}) => {
       }
       if(youtube){
         sendRequest(youtubeObj).then((data) => {
-
+          console.log(data)
         })
       }
       if(twitter){
