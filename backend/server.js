@@ -65,6 +65,7 @@ app.get('/bio/instagram/:instagram_name', (req, res) => {
 app.post('/db/user/insert/:id/:email', async (req, res) => {
   const id = req.params.id;
   const email = req.params.email
+  console.log("adding email" + email + id)
   res.send(await insertNewUser(id, email));
 })
 
@@ -116,15 +117,13 @@ app.post('/db/card/shareCard/:id/:cardID', async (req, res) => {
   const cardID = req.params.cardID;
   res.send(await shareCard(id, cardID));
 })
-
 //owner share by email
-app.post('/db/card/shareCard/:id/:cardID/:email', async (req, res) => {
+app.post('/db/card/shareCardEmail/:id/:cardID/:email', async (req, res) => {
   const id = req.params.id;
   const cardID = req.params.cardID;
   const email = req.params.email;
   res.send(await shareCardEmail(id, cardID, email));
 })
-
 //updateCard
 app.post('/db/card/updateCard/:id/:cardID', async (req, res) => {
   const id = req.params.id;
@@ -300,7 +299,8 @@ async function shareCard(sharedtoID, cardID) {
 // share by email
 async function shareCardEmail(id, cardID, email) {
   // get card data
-  const data = await db.collection('cards').doc(id).collection('myCards').doc(cardID).get();
+  const cardRef = await db.collection('cards').doc(id).collection('myCards').doc(cardID).get();
+  const data = cardRef.data();
 
   // find user
   var sharedtoID = '';
@@ -308,11 +308,19 @@ async function shareCardEmail(id, cardID, email) {
   ownerRef.forEach(doc => {
     sharedtoID = doc.id;
   });
+  console.log(sharedtoID);
 
   // add card to userID collection
   const sharedCards = db.collection('cards').doc(sharedtoID).collection("sharedCards").doc(cardID);
-  sharedCards.set(data)
 
+  sharedCards.get().then((cardData) => {
+    if(cardData.exists){
+      return 
+    }
+    else{
+      sharedCards.set(data)
+    }
+  })
   // update userID doc
   const userRef = await db.collection('cards').doc(sharedtoID).update({
     sharedCards: firebase.firestore.FieldValue.arrayUnion(cardID)
