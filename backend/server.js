@@ -122,7 +122,8 @@ app.post('/db/card/shareCardEmail/:id/:cardID/:email', async (req, res) => {
   const id = req.params.id;
   const cardID = req.params.cardID;
   const email = req.params.email;
-  res.send(await shareCardEmail(id, cardID, email));
+
+  res.send(JSON.stringify(await shareCardEmail(id, cardID, email)))
 })
 //updateCard
 app.post('/db/card/updateCard/:id/:cardID', async (req, res) => {
@@ -309,16 +310,26 @@ async function shareCardEmail(id, cardID, email) {
     sharedtoID = doc.id;
   });
   console.log(sharedtoID);
-
+  if(!sharedtoID){
+    return "account not found"
+  }
   // add card to userID collection
   const sharedCards = db.collection('cards').doc(sharedtoID).collection("sharedCards").doc(cardID);
-
   sharedCards.get().then((cardData) => {
     if(cardData.exists){
       return 
     }
     else{
-      sharedCards.set(data)
+      console.log(data)
+      try{
+        sharedCards.set(data)
+        return "success"
+      }
+      catch(e){
+        console.log(e)
+        return "account not found"
+      }
+      
     }
   })
   // update userID doc

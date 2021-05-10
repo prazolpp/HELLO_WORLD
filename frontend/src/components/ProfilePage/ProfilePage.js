@@ -38,7 +38,7 @@ const ProfilePage = () => {
                 <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <Kards name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 {/* <Link to='../GoogleSSO/GoogleSSO.js'><img src="google.jpeg" alt="google" width="40" height="20"/>Google</Link> */}
-                <button class="button" type="button" onClick={googleSignOut}>Sign Out</button>
+                <button className="button" type="button" onClick={googleSignOut}>Sign Out</button>
 
 
                 <UserStats />
