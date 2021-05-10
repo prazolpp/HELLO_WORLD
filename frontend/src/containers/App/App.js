@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AnalyticsPage from '../../components/AnalyticsPage/AnalyticsPage';
 import LandingPage from '../../components/LandingPage/LandingPage';
@@ -7,8 +7,11 @@ import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
 import ProfilePage from '../../components/ProfilePage/ProfilePage'
 import {userContext} from '../../userContext';
+import GoogleSSO from '../../components/GoogleSSO/GoogleSSO'
 
 const App = () => {
+    const [tabNum, setTabNum] = useState(0)
+
     // useEffect(() => {
     //     if(getUser(userContext.value.uid)){
     //         console.log("already signed up")
@@ -25,11 +28,12 @@ const App = () => {
     return (
         <Router>
             <div className="App">
-                <Navbar />
+                {/* <Navbar /> */}
+                <Navbar state={{ tabNum: [tabNum, setTabNum] }} />
                 <div className="appContent">
                     <Route path="/landingpage" component={LandingPage} />
-                    <Route path="/analytics" render={() => <AnalyticsPage />} />
-                    <Route path="/profile" render={() => <ProfilePage />}/>  
+                    <Route path="/analytics" render={() => <AnalyticsPage state={{ tabNum: [tabNum, setTabNum] }}/>} />
+                    <Route path="/profile" render={() => <ProfilePage state={{ tabNum: [tabNum, setTabNum] }}/>}/>  
                     {/* <Route path="/googleSSO" render={GoogleSSO} /> */}
                 </div>
             </div>

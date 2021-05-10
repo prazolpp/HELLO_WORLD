@@ -6,10 +6,19 @@ import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
 import StatCards from '../StatCards/StatCards';
+import { signInWithGoogle } from "../../services/firebase";
 import {userContext} from '../../userContext';
+import {Link} from 'react-router-dom'
 import GoogleSSO from '../GoogleSSO/GoogleSSO'
 
-const AnalyticsPage = ({}) => {
+const AnalyticsPage = (props) => {
+
+    const onClick = (event) => {
+        setTabNum(0);
+        signInWithGoogle();
+        // window.history.back()
+    }
+
 
     //use Effect to make api call to gather image and tweet info
     // trickle down the data from this component to child components to display in each of them 
@@ -27,6 +36,12 @@ const AnalyticsPage = ({}) => {
             tiktok:{}
         }
     })
+    const {
+        tabNum: [tabNum, setTabNum]
+      } = {
+        tabNum: useState(0),
+        ...(props.state || {})
+      };
     const [platform, setPlatform] = useState("Twitter")
     const  handleChange = (event) => setPlatform(event.target.value);
 
@@ -133,8 +148,28 @@ const AnalyticsPage = ({}) => {
     console.log(usersInfoState)
 
      if(userContext.value == undefined){
-         console.log(userContext.value)
-         return(<GoogleSSO />);
+        //  console.log(userContext.value)
+        //  return(<GoogleSSO state={{ tabNum: [tabNum, setTabNum] }}/>);
+        return (
+            <div className="GoogleSSO">
+    
+    
+                <div className="line">
+                    <h2>Sign in to manage your kards and view your social analytics!</h2>
+                </div>
+    
+    
+    
+    
+                <div className="sign">
+                    <p>---------------------Sign in with ---------------------</p>
+                    {/* <button type="button"><img src="google.jpeg" alt="google" width="40" height="20" onClick={onClick}/></button> */}
+                    <Link to='/landingpage'><img src="google.jpeg" alt="google" width="40" height="20" onClick={onClick}/></Link>
+                    
+                </div>
+            </div>
+        );
+    
     }else {
         return (
             <div className="Analytics">
