@@ -1,8 +1,22 @@
-import React, { useState } from 'react';
+
 import './LandingPage.css';
 import { signInWithGoogle } from "../../services/firebase";
 import { googleSignOut } from "../../services/firebase";
 
+import React, { useEffect, useState } from 'react';
+import { sendRequest } from '../../sendRequest/sendRequest';
+import { getTwitterData, getYoutubeData, getInstagramData} from '../../apis/apis';
+
+import ChartComponent from '../ChartComponent/ChartComponent'
+import UserBio from '../UserBio/UserBio'
+import TopNav from '../TopNav/TopNav';
+import StatCards from '../StatCards/StatCards';
+import {userContext} from '../../userContext';
+import GoogleSSO from '../GoogleSSO/GoogleSSO'
+
+const reload = () => {
+    LandingPage();
+}
 
 const LandingPage = ({}) => {
 
@@ -10,56 +24,119 @@ const LandingPage = ({}) => {
     
     };
 
-    return (
-        <div className="LandingPage">
-            <div className="welcomeKlout">
-                <img src="ruby.png" alt="ruby" width="140" height="100" />
-                <h1>Welcome to Klout</h1>
-                <p>Your personal social media manager</p>
-            </div>
+    //use Effect to make api call to gather image and tweet info
+    // trickle down the datas from this component to child components to display in each of them 
+    const [usersInfoState, setUsersInfoState] = useState({
+        image : '',
+        bio: '',
+        data: {}, 
+        userContext: userContext
+    });
 
+    const googleSignOut = () => {
+        userContext.value = undefined
+        window.location.reload(true)// reload();
+      }
 
-            <div className="line">
-                <h2>Track your social engagement with ease!</h2>
-            </div>
-
-            <div className="logos">
-                <ul>
-                    <li>
-                        <a href="https://instagram.com">
-                            <img src="instagram.jpg" alt="instagram" width="90" height="90"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://twitter.com"> 
+    if(userContext.value == undefined){
+        return (
+            <div className="LandingPage">
+                <div className="welcomeKlout">
+                    <img src="ruby.png" alt="ruby" width="140" height="100" />
+                    <h1>Welcome to Klout</h1>
+                    <p>Your personal social media manager</p>
+                </div>
+    
+    
+                <div className="line">
+                    <h2>Track your social engagement with ease!</h2>
+                    <h3>Choose one of the social media buttons now!</h3>
+                </div>
+    
+                <div className="logos">
+                    <ul>
+                        <ol>
+                            <img src="insta_last.png" alt="instagram" width="90" height="90"/>
+                        </ol>
+    
+                        <ol>
                             <img src="twitter.png" alt="twitter" width="90" height="90"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://tiktok.com">
+                        </ol>
+    
+                        <ol>
                             <img src="tiktok.png" alt="tiktok" width="90" height="90"/>
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="https://youtube.com">
+                        </ol>
+    
+                        <ol>
                             <img src="app-icons-youtube.png" alt="youtube" width="90" height="90"/>
-                        </a>
-                    </li>
-
-                </ul>
+                        </ol>
+    
+                    </ul>
+                </div>
+    
+    
+                <div className="sign">
+                    <p>---------------------Sign in with ---------------------</p>
+                    <button type="button"><img src="google.jpeg" alt="google" width="40" height="20" onClick={signInWithGoogle}/></button>
+                </div>
             </div>
+        );
+    } else {
 
+        //
+        // Portion executed when signed in
+        //
 
-            <div className="sign">
-                <p>---------------------Sign in with ---------------------</p>
-                {/* <Link to='../GoogleSSO/GoogleSSO.js'><img src="google.jpeg" alt="google" width="40" height="20"/>Google</Link> */}
-                <button type="button"><img src="google.jpeg" alt="google" width="40" height="20" onClick={signInWithGoogle}/></button>
+        return (
+            <div className="LandingPage">
+                <div className="welcomeKlout">
+                    <img src="ruby.png" alt="ruby" width="140" height="100" />
+                    <h1>Welcome to Klout</h1>
+                    <p>Your personal social media manager</p>
+                </div>
+    
+    
+                <div className="line">
+                    <h2>Track your social engagement with ease!</h2>
+                    <h3>Choose one of the social media buttons now!</h3>
+                </div>
+    
+                <div className="logos">
+                    <ul>
+                        <li >
+                            <a href="https://instagram.com">
+                                <img src="insta_last.png" alt="instagram" width="90" height="90"/>
+                            </a>
+                        </li>
+    
+                        <li>
+                            <a href="https://twitter.com"> 
+                                <img src="twitter.png" alt="twitter" width="90" height="90"/>
+                            </a>
+                        </li>
+    
+                        <li >
+                            <a href="https://tiktok.com">
+                                <img src="tiktok.png" alt="tiktok" width="90" height="90"/>
+                            </a>
+                        </li>
+    
+                        <li >
+                            <a href="https://youtube.com">
+                                <img src="app-icons-youtube.png" alt="youtube" width="90" height="90"/>
+                            </a>
+                        </li>
+    
+                    </ul>
+                </div>
+    
+    
+                
             </div>
-        </div>
-    );
+        );
+    }
+
+    
 };
 
 export default LandingPage;
