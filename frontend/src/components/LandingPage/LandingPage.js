@@ -18,6 +18,20 @@ const reload = () => {
     LandingPage();
 }
 
+var el = document.getElementById('button'); 
+
+if(el){
+    el.addEventListener('click',
+    function(){
+        document.querySelector('.bg-modal').style.display = 'flex';
+    });
+}
+
+document.querySelector('.close').addEventListener('click', 
+function(){
+    document.querySelector('.bg-modal').style.display = 'none'
+});
+
 const LandingPage = ({}) => {
 
     const getStarted = () => {
@@ -104,25 +118,25 @@ const LandingPage = ({}) => {
                 <div className="logos">
                     <ul>
                         <li >
-                            <a href="https://instagram.com">
+                            <a href="#" id="button" >
                                 <img src="insta_last.png" alt="instagram" width="90" height="90"/>
                             </a>
                         </li>
     
                         <li>
-                            <a href="https://twitter.com"> 
+                            <a href="#" id="button" >
                                 <img src="twitter.png" alt="twitter" width="90" height="90"/>
                             </a>
                         </li>
     
                         <li >
-                            <a href="https://tiktok.com">
+                            <a href="#" id="button" >
                                 <img src="tiktok.png" alt="tiktok" width="90" height="90"/>
                             </a>
                         </li>
     
                         <li >
-                            <a href="https://youtube.com">
+                            <a href="#" id="button">
                                 <img src="app-icons-youtube.png" alt="youtube" width="90" height="90"/>
                             </a>
                         </li>
@@ -130,9 +144,21 @@ const LandingPage = ({}) => {
                     </ul>
                 </div>
     
-    
+                <div className="bg-modal">
+                    <div className="modal-content">
+                        <div class="close">+</div>
+                        <img src="insta_last.png" alt="tiktok" width="90" height="90">
+                        </img>
+                        <form action="">
+                            <input type="text" placeholder="social account"></input>
+                            <a href="" class="button">Submit</a>
+                        </form>
+                    </div>
+                </div>
                 
             </div>
+
+            
         );
     }
 
