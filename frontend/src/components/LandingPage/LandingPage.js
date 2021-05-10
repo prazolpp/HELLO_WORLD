@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './LandingPage.css';
 import { signInWithGoogle } from "../../services/firebase";
+import { googleSignOut } from "../../services/firebase";
 
 
 const LandingPage = ({}) => {
@@ -25,23 +26,27 @@ const LandingPage = ({}) => {
             <div className="logos">
                 <ul>
                     <li>
-                        <img src="instagram.jpg" alt="instagram" width="90" height="90"/>
-                        <h4>Instagram</h4>
+                        <a href="https://instagram.com">
+                            <img src="instagram.jpg" alt="instagram" width="90" height="90"/>
+                        </a>
                     </li>
 
                     <li>
-                        <img src="twitter.png" alt="twitter" width="90" height="90"/>
-                        <h4>Twitter</h4>
+                        <a href="https://twitter.com"> 
+                            <img src="twitter.png" alt="twitter" width="90" height="90"/>
+                        </a>
                     </li>
 
                     <li>
-                        <img src="tiktok.png" alt="tiktok" width="90" height="90"/>
-                        <h4>TikTok</h4>
+                        <a href="https://tiktok.com">
+                            <img src="tiktok.png" alt="tiktok" width="90" height="90"/>
+                        </a>
                     </li>
 
                     <li>
-                        <img src="app-icons-youtube.png" alt="youtube" width="90" height="90"/>
-                        <h4>YouTube</h4>
+                        <a href="https://youtube.com">
+                            <img src="app-icons-youtube.png" alt="youtube" width="90" height="90"/>
+                        </a>
                     </li>
 
                 </ul>

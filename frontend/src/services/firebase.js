@@ -36,3 +36,7 @@ export const signInWithGoogle = () => {
     return false
   })
 }
+
+export const googleSignOut = () => {
+  userContext.value = undefined
+}
