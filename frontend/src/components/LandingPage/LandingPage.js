@@ -179,6 +179,6 @@ try{
     export default LandingPage;
     
 }catch(err){
-    document.getElementById("demo").innerHTML = err.message;
+    console.log('Mistake in loading the landing page')
 }
 
