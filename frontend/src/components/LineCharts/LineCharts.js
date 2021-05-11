@@ -28,7 +28,7 @@ let followData = {
 const options =  {
     title:{
         display:true,
-        text:'Social Media Statistics for the past year',
+        text:'Social Media Statistics for the past year for Elon Musk',
         fontSize:20
     },
     legend:{

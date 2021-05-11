@@ -11,7 +11,12 @@
     margin-left: 2%;
 } 
 
-.button {
+.Profile > * input{
+    margin-right: 10px;
+    padding: 5px;
+}
+
+.button-signout{
     background-color: #b84d4d;
     border: none;
     color: white;

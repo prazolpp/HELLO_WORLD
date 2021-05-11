@@ -1,15 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { sendRequest } from '../../sendRequest/sendRequest';
-import { getTwitterData } from '../../apis/apis';
+import React, {useState } from 'react';
 import './ProfilePage.css';
 import UserBio from '../UserBio/UserBio'
-import UserStats from '../UserStats/UserStats'
 import Kards from '../Kards/Kards'
 import { Link } from 'react-router-dom';
 import {userContext} from '../../userContext';
 import { signInWithGoogle } from "../../services/firebase";
-
-import GoogleSSO from '../GoogleSSO/GoogleSSO'
 // import { googleSignOut } from "../../services/firebase";
 
 // const ProfilePage = ({username}) => {
@@ -56,15 +51,8 @@ const ProfilePage = (props) => {
                 <UserBio name={userContext.value.displayName} img={userContext.value.photoURL}/>
                 <Kards name={userContext.value.displayName} img={userContext.value.photoURL}/>
 
-                <Link to='/landingpage' onClick={googleSignOut} class="button">Sign Out</Link>
+                <Link to='/landingpage' onClick={googleSignOut} class="button-signout">Sign Out</Link>
                 {/* <button class="button" type="button" onClick={googleSignOut}>Sign Out</button> */}
-
-
-                <UserStats />
-                {/*
-                    <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
-                    <UserData data={usersInfoState.data} />
-                */}
 
             </div>
             
