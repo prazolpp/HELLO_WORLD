@@ -61,18 +61,18 @@ const AddCard = ({username, img, cardAdder}) => {
     return (
         <form className="addCard" onSubmit={onSubmit}>
         <label>
-            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
+            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field1name" onChange={handleInputChange}/>
             <input type="text" name="field1val" onChange={handleInputChange}/>
         </label><br /><br /><br />
 
         <label>
-            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
+            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field2name" onChange={handleInputChange}/>
             <input type="text" name="field2val" onChange={handleInputChange}/>
         </label><br /><br /><br />
         <label>
-            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
+            Social Media &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Account Name
             <input type="text" name="field3name" onChange={handleInputChange}/>
             <input type="text" name="field3val" onChange={handleInputChange}/>
         </label><br /><br /><br />

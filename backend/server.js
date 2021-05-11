@@ -352,7 +352,6 @@ async function shareCardEmail(id, cardID, email) {
 
     }
   })
-  sharedCards.set(data);
 
   // update userID doc
   const userRef = await db.collection('cards').doc(sharedtoID).update({
