@@ -15,6 +15,7 @@ Go to backend repo and run: `npm install`.
 ### Run the frontend and backend:
 
 Before running the backend, please create a .env file in the backend folder, and add the api keys provided by the team. 
+
 In the frontend repo, run: `npm run start`.  
 In the backend repo, run: `npm run start`. 
 
