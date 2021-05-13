@@ -123,7 +123,7 @@ app.post('/db/card/shareCardEmail/:id/:cardID/:email', async (req, res) => {
   const id = req.params.id;
   const cardID = req.params.cardID;
   const email = req.params.email;
-  res.send(await shareCardEmail(id, cardID, email));
+  res.send(await shareCardEmail(id, cardID.toString(), email));
 })
 
 //updateCard
@@ -340,10 +340,9 @@ async function shareCardEmail(id, cardID, email) {
       return 
     }
     else{
-      console.log(data)
+      console.log(data, "this is the data", data)
       try{
-        sharedCards.set(data)
-        return "success"
+        sharedCards.set(data.data())
       }
       catch(e){
         console.log(e)
@@ -352,11 +351,12 @@ async function shareCardEmail(id, cardID, email) {
 
     }
   })
-
-  // update userID doc
+//  sharedCards.set(data);
+ // update userID doc
   const userRef = await db.collection('cards').doc(sharedtoID).update({
     sharedCards: firebase.firestore.FieldValue.arrayUnion(cardID)
   }); 
+  return "success"
 }
 
 // update card
