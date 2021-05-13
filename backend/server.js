@@ -88,13 +88,21 @@ app.post('/db/user/delete/:id', async (req, res) => {
 })
 
 // new card
+// app.post('/db/card/newCard/:id/:cardName', async (req, res) => {
+//   const id = req.params.id;
+//   const cardName = req.params.cardName;
+//   const cardid = hashString(id+cardName);
+//   console.log(req.body)
+//   res.send(await insertNewPersonalCard(id,cardid,req.body));
+// })
+
 app.post('/db/card/newCard/:id/:cardName', async (req, res) => {
-  const id = req.params.id;
-  const cardName = req.params.cardName;
-  const cardid = hashString(id+cardName);
-  console.log(req.body)
-  res.send(await insertNewPersonalCard(id,cardid,req.body));
+    const id = req.params.id;
+    const cardName = req.params.cardName;
+    console.log(req.body)
+    res.send(await insertNewPersonalCard(id,cardName,req.body));
 })
+  
 
 //getCard
 app.get('/db/card/getCard/:cardid', async (req, res) => {
@@ -320,8 +328,9 @@ async function shareCard(sharedtoID, cardID) {
 // share by email
 async function shareCardEmail(id, cardID, email) {
   // get card data
+  console.log(id, cardID, "idcardid")
   const data = await db.collection('cards').doc(id).collection('myCards').doc(cardID).get();
-
+  console.log(data, "this is the data")
   // find user
   var sharedtoID = '';
   const ownerRef = await db.collection('users').where('email', '==', email).get();
@@ -340,7 +349,7 @@ async function shareCardEmail(id, cardID, email) {
       return 
     }
     else{
-      console.log(data, "this is the data", data)
+//      console.log(data, "this is the data", data)
       try{
         sharedCards.set(data.data())
       }

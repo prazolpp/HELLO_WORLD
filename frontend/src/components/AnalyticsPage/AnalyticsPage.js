@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import { getTwitterData, getYoutubeData, getInstagramData} from '../../apis/apis';
+import {Link} from 'react-router-dom';
 import './AnalyticsPage.css';
 import ChartComponent from '../ChartComponent/ChartComponent'
 import UserBio from '../UserBio/UserBio'
 import TopNav from '../TopNav/TopNav';
 import StatCards from '../StatCards/StatCards';
-import { signInWithGoogle } from "../../services/firebase";
+import { googleSignOut, signInWithGoogle } from "../../services/firebase";
 import {userContext} from '../../userContext';
-import {Link} from 'react-router-dom'
-import GoogleSSO from '../GoogleSSO/GoogleSSO'
+import GoogleSSO from '../GoogleSSO/GoogleSSO';
 
 const AnalyticsPage = (props) => {
 
@@ -132,7 +132,7 @@ const AnalyticsPage = (props) => {
                 }            
             })
         }
-
+        
         if(platform == "Instagram" && usersInfoState.setInstagramName){
             let instaRequestObj = {
                 url: `${getInstagramData}/${usersInfoState.instagramName}`
@@ -164,22 +164,7 @@ const AnalyticsPage = (props) => {
      if(userContext.value == undefined){
         //  console.log(userContext.value)
         //  return(<GoogleSSO state={{ tabNum: [tabNum, setTabNum] }}/>);
-        return (
-            <div className="GoogleSSO">
-    
-    
-                <div className="line">
-                    <h2>Sign in to manage your kards and view your social analytics!</h2>
-                </div>
-    
-                <div className="sign">
-                    <p>---------------------Sign in with ---------------------</p>
-                    {/* <button type="button"><img src="google.jpeg" alt="google" width="40" height="20" onClick={onClick}/></button> */}
-                    <Link to='/landingpage'><img src="google.jpeg" alt="google" width="40" height="20" onClick={onClick}/></Link>
-                    
-                </div>
-            </div>
-        );
+        return (<GoogleSSO />)
     
     }else {
         return (
@@ -191,6 +176,7 @@ const AnalyticsPage = (props) => {
                 </div>
                 <StatCards platform={platform} setTwitterName={setTwitterName} setYoutubeName={setYoutubeName} setInstagramName={setInstagramName} usersInfoState={usersInfoState}/>
                 <ChartComponent />
+                <Link to='/landingpage' onClick={googleSignOut} class="button-signout">Sign Out</Link>
                 {/*
                     <UserInfo username={usersInfoState.username} image={usersInfoState.image} bio={usersInfoState.bio}/>
                     <UserData data={usersInfoState.data} />

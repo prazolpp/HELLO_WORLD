@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
 import AnalyticsPage from '../../components/AnalyticsPage/AnalyticsPage';
 import LandingPage from '../../components/LandingPage/LandingPage';
-import SearchPage from '../../components/SearchPage/SearchPage';
 import Navbar from '../../components/Navbar/Navbar';
 import './App.css';
 import ProfilePage from '../../components/ProfilePage/ProfilePage'
-import {userContext} from '../../userContext';
-
-import {sendRequest} from '../../sendRequest/sendRequest'
-import {addEmail} from '../../apis/apis'
-
 
 const App = () => {
     const [tabNum, setTabNum] = useState(0)

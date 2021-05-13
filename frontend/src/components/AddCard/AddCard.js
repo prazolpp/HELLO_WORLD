@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { addCard, addCardUser} from '../../apis/apis';
 import { sendRequest } from '../../sendRequest/sendRequest';
 import {userContext} from '../../userContext';
+import {hashString} from '../../services/cardops'
 
 const AddCard = ({username, img, cardAdder}) => {
 
@@ -25,7 +26,7 @@ const AddCard = ({username, img, cardAdder}) => {
     const onSubmit = (e) => {
         e.preventDefault()
         let addCard = "http://localhost:5000/db/card/newCard"
-        let cardname = Math.random(Number.MAX_SIZE)
+        let cardname = hashString(userContext.value.uid+Math.random(Number.MAX_VALUE));
         let requestObj = {
             url: `${addCard}/${userContext.value.uid}/${cardname}`,
             method: 'POST',
@@ -40,7 +41,7 @@ const AddCard = ({username, img, cardAdder}) => {
 
         sendRequest(requestObj).then((data) => console.log)
         alert("A new card has been added. Please go to personal cards to view it")
-        cardAdder({cardname: card})
+        cardAdder({[cardname]: card})
         // let card = 
         //     [userData.field1name] : userData.field1val,
         //     [userData.field2name] : userData.field2val,

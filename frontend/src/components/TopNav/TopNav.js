@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './TopNav.css';
-import SearchBar from '../SearchBar/SearchBar.js'
 import Dropdown from '../Dropdown/Dropdown';
 
-const TopNav = ({username, setUsername, platform, handleChange}) => {
-    const options = ["Instagram", "Twitter", "Youtube"]
+const TopNav = ({platform, handleChange}) => {
+    const options = ["Twitter", "Youtube"]
 
     return (
         <div className="TopNav">
             <Dropdown options={options} optionNames={options} dropdownOpen={platform} handleChange={handleChange} />
-            <button className="signout" >Sign Out</button>
         </div>
     )
 }
