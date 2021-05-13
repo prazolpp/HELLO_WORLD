@@ -5,7 +5,7 @@
 
 ### Clone the repo: 
 
-`git clone https://github.com/prazolpp/HELLO_WORLD.git
+`git clone https://github.com/prazolpp/HELLO_WORLD.git`
 
 ### Install the frontend and backend dependencies:
 
