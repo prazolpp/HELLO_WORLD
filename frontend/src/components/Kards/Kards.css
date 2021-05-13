@@ -14,6 +14,7 @@
     display: grid;
     max-width: 24em;
     min-width: 21em;
+    height: 768px fixed;
 }
 
 .Profile .tab {
